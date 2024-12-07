@@ -25,7 +25,7 @@
         :suggestion-index="suggestionIndex"
         :suggestion-list="suggestionList"
       >
-        <word-highlighter
+        <WordHighlighter
           v-for="(suggestionItemList, suggestionIndexList) in suggestionList"
           :key="`suggestion_${suggestionIndexList}`"
           :class="suggestionIndexList === suggestionIndex ? proxyClasses.suggestionCurrentItem : ''"
@@ -40,8 +40,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 import type { PropType, ComputedRef } from 'vue';
 import WordHighlighter from 'vue-word-highlighter';
 import { KeyEvent } from './types';
@@ -53,113 +52,89 @@ import type {
   Suggestion,
 } from './types';
 import { DEFAULT_CLASSES, DEFAULT_HIGHLIGHT_OPTIONS } from './const';
-import useClasses from './classes';
-import useHighlightOptions from './highlight-options';
-import useSuggestions from './suggestions';
+import { useClasses } from './classes';
+import { useHighlightOptions } from './highlight-options';
+import { useSuggestions } from './suggestions';
 
-export default defineComponent({
-  name: 'VueDadata',
-  components: {
-    WordHighlighter,
+const props = defineProps({
+  token: {
+    type: String,
+    required: true,
   },
-  props: {
-    token: {
-      type: String,
-      required: true,
-    },
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    suggestion: {
-      type: Object as PropType<Suggestion | undefined>,
-      default: () => undefined,
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
-    url: {
-      type: String,
-      default: undefined,
-    },
-    debounceWait: {
-      type: String || (Number as PropType<number | string>),
-      default: '1000ms',
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    fromBound: {
-      type: String as PropType<BoundsType>,
-      default: undefined,
-    },
-    toBound: {
-      type: String as PropType<BoundsType>,
-      default: undefined,
-    },
-    inputName: {
-      type: String,
-      default: 'vue-dadata-input',
-    },
-    locationOptions: {
-      type: Object as PropType<LocationOptions>,
-      default: undefined,
-    },
-    classes: {
-      type: Object as PropType<VueDadataClasses>,
-      default: () => DEFAULT_CLASSES,
-    },
-    highlightOptions: {
-      type: Object as PropType<HighlightOptions>,
-      default: () => DEFAULT_HIGHLIGHT_OPTIONS,
-    },
-    autocomplete: {
-      type: Boolean,
-      default: false,
-    },
+  modelValue: {
+    type: String,
+    required: true,
   },
-  emits: ['update:modelValue', 'update:suggestion', 'handleError'],
-  setup(props, { emit }) {
-    const proxyClasses: ComputedRef<VueDadataClasses> = useClasses(props.classes);
-    const proxyHighlightOptions: ComputedRef<HighlightOptions> = useHighlightOptions(
-      props.highlightOptions,
-    );
-    const {
-      queryProxy,
-      suggestionProxy,
-      inputFocused,
-      suggestionsVisible,
-      suggestionIndex,
-      suggestionList,
-
-      onInputChange,
-      onKeyPress,
-      onInputFocus,
-      onInputBlur,
-      onSuggestionClick,
-    } = useSuggestions(props, emit);
-
-    return {
-      KeyEvent,
-      queryProxy,
-      suggestionProxy,
-      inputFocused,
-      suggestionsVisible,
-      suggestionList,
-      proxyClasses,
-      proxyHighlightOptions,
-      suggestionIndex,
-
-      onInputChange,
-      onKeyPress,
-      onInputFocus,
-      onInputBlur,
-      onSuggestionClick,
-    };
+  suggestion: {
+    type: Object as PropType<Suggestion | undefined>,
+    default: () => undefined,
+  },
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  url: {
+    type: String,
+    default: undefined,
+  },
+  debounceWait: {
+    type: String || (Number as PropType<number | string>),
+    default: '1000ms',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  fromBound: {
+    type: String as PropType<BoundsType>,
+    default: undefined,
+  },
+  toBound: {
+    type: String as PropType<BoundsType>,
+    default: undefined,
+  },
+  inputName: {
+    type: String,
+    default: 'vue-dadata-input',
+  },
+  locationOptions: {
+    type: Object as PropType<LocationOptions>,
+    default: undefined,
+  },
+  classes: {
+    type: Object as PropType<VueDadataClasses>,
+    default: () => DEFAULT_CLASSES,
+  },
+  highlightOptions: {
+    type: Object as PropType<HighlightOptions>,
+    default: () => DEFAULT_HIGHLIGHT_OPTIONS,
+  },
+  autocomplete: {
+    type: Boolean,
+    default: false,
   },
 });
+
+const emit = defineEmits(['update:modelValue', 'update:suggestion', 'handleError']);
+
+const proxyClasses: ComputedRef<VueDadataClasses> = useClasses(props.classes);
+const proxyHighlightOptions: ComputedRef<HighlightOptions> = useHighlightOptions(
+  props.highlightOptions,
+);
+const {
+  queryProxy,
+  suggestionProxy,
+  inputFocused,
+  suggestionsVisible,
+  suggestionIndex,
+  suggestionList,
+
+  onInputChange,
+  onKeyPress,
+  onInputFocus,
+  onInputBlur,
+  onSuggestionClick,
+} = useSuggestions(props, emit);
 </script>
 
 <style src="./index.css"></style>

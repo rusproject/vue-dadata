@@ -3,8 +3,8 @@ import type { ComputedRef } from 'vue';
 import type { VueDadataClasses } from './types';
 import { DEFAULT_CLASSES } from './const';
 
-const useClasses = (classes?: VueDadataClasses): ComputedRef<VueDadataClasses> =>
-  computed(() => ({
+export function useClasses(classes?: VueDadataClasses): ComputedRef<VueDadataClasses> {
+  return computed(() => ({
     container: classes?.container ?? DEFAULT_CLASSES.container,
     search: classes?.search ?? DEFAULT_CLASSES.search,
     input: classes?.input ?? DEFAULT_CLASSES.input,
@@ -12,5 +12,4 @@ const useClasses = (classes?: VueDadataClasses): ComputedRef<VueDadataClasses> =
     suggestionItem: classes?.suggestionItem ?? DEFAULT_CLASSES.suggestionItem,
     suggestionCurrentItem: classes?.suggestionCurrentItem ?? DEFAULT_CLASSES.suggestionCurrentItem,
   }));
-
-export default useClasses;
+}

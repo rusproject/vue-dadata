@@ -1,6 +1,6 @@
 <template>
   <div class="vue-truncate-html-example">
-    <vue-dadata
+    <VueDadata
       v-model="query"
       v-model:suggestion="suggestion"
       :autocomplete="true"
@@ -10,33 +10,18 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue';
 import VueDadata from './VueDadata.vue';
 import './index.css';
 import type { HighlightOptions } from './types';
 
-export default defineComponent({
-  name: 'VueDadataExample',
-  components: {
-    VueDadata,
-  },
-  setup() {
-    const query = ref('');
-    const suggestion = ref(undefined);
-    const highlightOptions: HighlightOptions = {
-      highlightClass: 'test',
-      highlightTag: 'span',
-    };
+const token = import.meta.env.VITE_APP_DADATA_API_KEY as string;
 
-    return {
-      token: import.meta.env.VITE_APP_DADATA_API_KEY as string,
-      query,
-      suggestion,
-      highlightOptions,
-    };
-  },
-});
+const query = ref('');
+const suggestion = ref(undefined);
+const highlightOptions: HighlightOptions = {
+  highlightClass: 'test',
+  highlightTag: 'span',
+};
 </script>
-
-<style scoped></style>

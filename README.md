@@ -19,29 +19,19 @@ $ pnpm install git+https://github.com/rusproject/vue-dadata.git#rewritten
 ```html
 <template>
   <div class="vue-truncate-html-example">
-    <vue-dadata v-model="query" :token="token" />
+    <VueDadata v-model="query" v-model:suggestion="suggestion" :token="token" />
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { VueDadata } from 'vue-dadata';
-  import 'vue-dadata/dist/vue-dadata.css';
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { VueDadata } from 'vue-dadata';
+import 'vue-dadata/dist/vue-dadata.css';
 
-  export default defineComponent({
-    name: 'VueTruncateHtmlExample',
-    components: {
-      VueDadata,
-    },
-    setup() {
-      const query = ref('');
+const token = import.meta.env.VITE_APP_DADATA_API_KEY as string;
 
-      return {
-        token: import.meta.env.VITE_APP_DADATA_API_KEY,
-        query,
-      };
-    },
-  });
+const query = ref('');
+const suggestion = ref(undefined);
 </script>
 ```
 

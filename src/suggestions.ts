@@ -5,10 +5,10 @@ import { KeyEvent } from './types';
 import type { BoundsType, LocationOptions, Suggestion, SuggestionDto } from './types';
 import { getSuggestions } from './api';
 
-const useSuggestions = (
+export function useSuggestions(
   props: {
     modelValue: string;
-    suggestion: Suggestion | undefined;
+    suggestion?: Suggestion | undefined;
     token: string;
     url?: string;
     disabled?: boolean;
@@ -20,7 +20,7 @@ const useSuggestions = (
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   emit: (event: 'update:modelValue' | 'update:suggestion' | 'handleError', ...args: any[]) => void,
-) => {
+) {
   const queryProxy = computed({
     get: () => props.modelValue,
     set: (value) => emit('update:modelValue', value),
@@ -177,6 +177,4 @@ const useSuggestions = (
     onInputBlur,
     onSuggestionClick,
   };
-};
-
-export default useSuggestions;
+}

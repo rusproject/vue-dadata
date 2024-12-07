@@ -1,36 +1,21 @@
 <template>
-  <div class="vue-truncate-html-example">
-    <vue-dadata
+  <div>
+    <VueDadata
       v-model="query"
       v-model:suggestion="suggestion"
+      :autocomplete="true"
       :token="token"
-      :autocomplete="true" />
+    />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
-import VueDadata from '../src/VueDadata.vue';
-import '../src/index.css';
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { VueDadata } from 'vue-dadata';
+import 'vue-dadata/dist/vue-dadata.css';
 
-export default defineComponent({
-  name: 'VueTruncateHtmlExample',
-  components: {
-    VueDadata,
-  },
-  setup() {
-    const query = ref('');
-    const suggestion = ref(undefined);
+const token = import.meta.env.VITE_APP_DADATA_API_KEY as string;
 
-    return {
-      token: import.meta.env.VITE_APP_DADATA_API_KEY as string,
-      query,
-      suggestion,
-    };
-  },
-});
+const query = ref('');
+const suggestion = ref(undefined);
 </script>
-
-<style scoped>
-
-</style>
