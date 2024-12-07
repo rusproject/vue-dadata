@@ -1,45 +1,3 @@
-<template>
-  <div :class="proxyClasses.container">
-    <div :class="proxyClasses.search">
-      <input
-        :name="inputName"
-        v-model="queryProxy"
-        :class="proxyClasses.input"
-        :disabled="disabled"
-        :placeholder="placeholder"
-        type="text"
-        @blur="onInputBlur"
-        @focus="onInputFocus"
-        @input="onInputChange"
-        @keyup.down="onKeyPress($event, KeyEvent.Down)"
-        @keyup.enter="onKeyPress($event, KeyEvent.Enter)"
-        @keyup.esc="onKeyPress($event, KeyEvent.Esc)"
-        @keyup.up="onKeyPress($event, KeyEvent.Up)"
-      />
-    </div>
-    <div v-if="inputFocused && suggestionsVisible && !disabled" :class="proxyClasses.suggestions">
-      <slot
-        name="suggestions"
-        :query="queryProxy"
-        :suggestion="suggestionProxy"
-        :suggestion-index="suggestionIndex"
-        :suggestion-list="suggestionList"
-      >
-        <WordHighlighter
-          v-for="(suggestionItemList, suggestionIndexList) in suggestionList"
-          :key="`suggestion_${suggestionIndexList}`"
-          :class="suggestionIndexList === suggestionIndex ? proxyClasses.suggestionCurrentItem : ''"
-          :query="queryProxy"
-          :text-to-highlight="suggestionItemList.value"
-          :wrapper-class="proxyClasses.suggestionItem"
-          v-bind="proxyHighlightOptions"
-          @mousedown="onSuggestionClick(suggestionIndexList)"
-        />
-      </slot>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import type { PropType, ComputedRef } from 'vue';
 import WordHighlighter from 'vue-word-highlighter';
@@ -136,5 +94,47 @@ const {
   onSuggestionClick,
 } = useSuggestions(props, emit);
 </script>
+
+<template>
+  <div :class="proxyClasses.container">
+    <div :class="proxyClasses.search">
+      <input
+        :name="inputName"
+        v-model="queryProxy"
+        :class="proxyClasses.input"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        type="text"
+        @blur="onInputBlur"
+        @focus="onInputFocus"
+        @input="onInputChange"
+        @keyup.down="onKeyPress($event, KeyEvent.Down)"
+        @keyup.enter="onKeyPress($event, KeyEvent.Enter)"
+        @keyup.esc="onKeyPress($event, KeyEvent.Esc)"
+        @keyup.up="onKeyPress($event, KeyEvent.Up)"
+      />
+    </div>
+    <div v-if="inputFocused && suggestionsVisible && !disabled" :class="proxyClasses.suggestions">
+      <slot
+        name="suggestions"
+        :query="queryProxy"
+        :suggestion="suggestionProxy"
+        :suggestion-index="suggestionIndex"
+        :suggestion-list="suggestionList"
+      >
+        <WordHighlighter
+          v-for="(suggestionItemList, suggestionIndexList) in suggestionList"
+          :key="`suggestion_${suggestionIndexList}`"
+          :class="suggestionIndexList === suggestionIndex ? proxyClasses.suggestionCurrentItem : ''"
+          :query="queryProxy"
+          :text-to-highlight="suggestionItemList.value"
+          :wrapper-class="proxyClasses.suggestionItem"
+          v-bind="proxyHighlightOptions"
+          @mousedown="onSuggestionClick(suggestionIndexList)"
+        />
+      </slot>
+    </div>
+  </div>
+</template>
 
 <style src="./index.css"></style>

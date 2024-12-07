@@ -16,13 +16,7 @@ $ pnpm install git+https://github.com/rusproject/vue-dadata.git#rewritten
 
 ## Usage
 
-```html
-<template>
-  <div class="vue-truncate-html-example">
-    <VueDadata v-model="query" v-model:suggestion="suggestion" :token="token" />
-  </div>
-</template>
-
+```vue
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { VueDadata } from 'vue-dadata';
@@ -33,6 +27,12 @@ const token = import.meta.env.VITE_APP_DADATA_API_KEY as string;
 const query = ref('');
 const suggestion = ref(undefined);
 </script>
+
+<template>
+  <div class="vue-truncate-html-example">
+    <VueDadata v-model="query" v-model:suggestion="suggestion" :token="token" />
+  </div>
+</template>
 ```
 
 ### Properties

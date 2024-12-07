@@ -1,15 +1,3 @@
-<template>
-  <div class="vue-truncate-html-example">
-    <VueDadata
-      v-model="query"
-      v-model:suggestion="suggestion"
-      :autocomplete="true"
-      :highlight-options="highlightOptions"
-      :token="token"
-    />
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { ref } from 'vue';
 import VueDadata from './VueDadata.vue';
@@ -25,3 +13,15 @@ const highlightOptions: HighlightOptions = {
   highlightTag: 'span',
 };
 </script>
+
+<template>
+  <div class="vue-truncate-html-example">
+    <VueDadata
+      v-model="query"
+      v-model:suggestion="suggestion"
+      :autocomplete="true"
+      :highlight-options="highlightOptions"
+      :token="token"
+    />
+  </div>
+</template>
