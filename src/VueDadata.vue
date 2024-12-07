@@ -2,37 +2,37 @@
   <div :class="proxyClasses.container">
     <div :class="proxyClasses.search">
       <input
-        v-model="queryProxy"
-        type="text"
         :name="inputName"
+        v-model="queryProxy"
         :class="proxyClasses.input"
         :disabled="disabled"
         :placeholder="placeholder"
+        type="text"
+        @blur="onInputBlur"
+        @focus="onInputFocus"
         @input="onInputChange"
+        @keyup.down="onKeyPress($event, KeyEvent.Down)"
         @keyup.enter="onKeyPress($event, KeyEvent.Enter)"
         @keyup.esc="onKeyPress($event, KeyEvent.Esc)"
         @keyup.up="onKeyPress($event, KeyEvent.Up)"
-        @keyup.down="onKeyPress($event, KeyEvent.Down)"
-        @focus="onInputFocus"
-        @blur="onInputBlur"
       />
     </div>
     <div v-if="inputFocused && suggestionsVisible && !disabled" :class="proxyClasses.suggestions">
       <slot
         name="suggestions"
-        :suggestion-list="suggestionList"
-        :suggestion-index="suggestionIndex"
         :query="queryProxy"
         :suggestion="suggestionProxy"
+        :suggestion-index="suggestionIndex"
+        :suggestion-list="suggestionList"
       >
         <word-highlighter
           v-for="(suggestionItemList, suggestionIndexList) in suggestionList"
           :key="`suggestion_${suggestionIndexList}`"
-          v-bind="proxyHighlightOptions"
-          :wrapper-class="proxyClasses.suggestionItem"
           :class="suggestionIndexList === suggestionIndex ? proxyClasses.suggestionCurrentItem : ''"
           :query="queryProxy"
           :text-to-highlight="suggestionItemList.value"
+          :wrapper-class="proxyClasses.suggestionItem"
+          v-bind="proxyHighlightOptions"
           @mousedown="onSuggestionClick(suggestionIndexList)"
         />
       </slot>

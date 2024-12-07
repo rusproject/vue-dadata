@@ -3,9 +3,9 @@
     <vue-dadata
       v-model="query"
       v-model:suggestion="suggestion"
+      :autocomplete="true"
       :highlight-options="highlightOptions"
       :token="token"
-      :autocomplete="true"
     />
   </div>
 </template>
