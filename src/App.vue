@@ -13,7 +13,7 @@
 import { defineComponent, ref } from 'vue';
 import VueDadata from './VueDadata.vue';
 import './index.css';
-import { HighlightOptions } from './types';
+import type { HighlightOptions } from './types';
 
 export default defineComponent({
   name: 'VueDadataExample',

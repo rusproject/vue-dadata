@@ -1,10 +1,8 @@
-import {
-  computed, ref, watch, Ref,
-} from 'vue';
+import { computed, ref, watch } from 'vue';
+import type { Ref } from 'vue';
 import { debounce } from 'vue-debounce';
-import {
-  BoundsType, KeyEvent, LocationOptions, Suggestion, SuggestionDto,
-} from './types';
+import { KeyEvent } from './types';
+import type { BoundsType, LocationOptions, Suggestion, SuggestionDto } from './types';
 import { getSuggestions } from './api';
 
 const useSuggestions = (
@@ -20,7 +18,7 @@ const useSuggestions = (
     locationOptions?: LocationOptions,
     autocomplete: boolean,
   },
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   emit: (event: 'update:modelValue' | 'update:suggestion' | 'handleError', ...args: any[]) => void,
 ) => {
   const queryProxy = computed({

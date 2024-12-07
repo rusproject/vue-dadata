@@ -1,20 +1,14 @@
-/// <reference types="vitest" />
-import { defineConfig } from 'vitest/config';
-import * as path from 'path';
-import vue from '@vitejs/plugin-vue';
+import { fileURLToPath } from 'node:url'
+import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
+import viteConfig from './vite.config'
 
-export default defineConfig({
-  test: {
-    globals: true,
-    environment: 'happy-dom',
-    coverage: {
-      // provider: 'istanbul',
-      provider: 'c8',
-      reporter: ['text', 'json', 'html'],
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      environment: 'jsdom',
+      exclude: [...configDefaults.exclude, 'e2e/**'],
+      root: fileURLToPath(new URL('./', import.meta.url)),
     },
-    include: ['./src/**/*.test.ts']
-  },
-  plugins: [
-    vue(),
-  ],
-});
+  }),
+)

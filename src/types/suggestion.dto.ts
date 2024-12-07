@@ -1,5 +1,5 @@
-import { LocationOptions } from './location-options.types';
-import { BoundsType, DadataAddress } from './address.types';
+import type { LocationOptions } from './location-options.types';
+import type { BoundsType, DadataAddress } from './address.types';
 
 export interface SuggestionDto {
   token: string;

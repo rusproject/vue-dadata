@@ -1,11 +1,11 @@
 # Vue Dadata
 
-![Publish](https://github.com/ikloster03/vue-dadata/workflows/Publish/badge.svg)
+![Publish](https://github.com/rusproject/vue-dadata/workflows/Publish/badge.svg)
 [![gitlocalized ](https://gitlocalize.com/repo/3342/whole_project/badge.svg)](https://gitlocalize.com/repo/3342/whole_project?utm_source=badge)
 
 Это vue компонент для подсказок с использованием сервиса [DaData.ru](https://dadata.ru).
 
-[Ссылка на EN документацию](https://github.com/ikloster03/vue-dadata/tree/master/README.md)
+[Ссылка на EN документацию](https://github.com/rusproject/vue-dadata/tree/rewritten/README.md)
 
 ## Установка
 
@@ -83,15 +83,15 @@ autoSelectOnEnter  | Нет  |  boolean  |  Если `true`, то при наж�
 
 ## Отчет о проблемах
 
-Если вы обнаружили ошибку или у вас есть запрос на добавление функции, сообщите об этом в [разделе проблем с](https://github.com/ikloster03/vue-dadata/issues) хранилищем.
+Если вы обнаружили ошибку или у вас есть запрос на добавление функции, сообщите об этом в [разделе проблем с](https://github.com/rusproject/vue-dadata/issues) хранилищем.
 
 ## Собираемся сделать
 
-[Показать проект Vue Dadata](https://github.com/ikloster03/vue-dadata/projects/1)
+[Показать проект Vue Dadata](https://github.com/rusproject/vue-dadata/projects/1)
 
 ## Основные этапы
 
-[Показать основные этапы](https://github.com/ikloster03/vue-dadata/milestones)
+[Показать основные этапы](https://github.com/rusproject/vue-dadata/milestones)
 
 ## Свяжитесь со мной
 
@@ -106,14 +106,14 @@ autoSelectOnEnter  | Нет  |  boolean  |  Если `true`, то при наж�
 
 ##
 
-[CHANGELOG](https://github.com/ikloster03/vue-dadata/blob/master/CHANGELOG.md)
+[CHANGELOG](https://github.com/rusproject/vue-dadata/blob/rewritten/CHANGELOG.md)
 
 ##
 
-[CONTRIBUTING](https://github.com/ikloster03/vue-dadata/blob/master/CONTRIBUTING.md)
+[CONTRIBUTING](https://github.com/rusproject/vue-dadata/blob/rewritten/CONTRIBUTING.md)
 
 ##
 
-[ЛИЦЕНЗИЯ](https://github.com/ikloster03/vue-dadata/blob/master/LICENSE)
+[ЛИЦЕНЗИЯ](https://github.com/rusproject/vue-dadata/blob/rewritten/LICENSE)
 
-Copyright (c) 2019 Иван Монастырев [ikloster@yandex.ru](mailto:ikloster@yandex.ru) . Лицензировано по [лицензии MIT](https://github.com/ikloster03/vue-dadata/blob/master/LICENSE) .
+Forked from [original author’s repo](https://github.com/ikloster03/vue-dadata) by Ivan Monastyrev

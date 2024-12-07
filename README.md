@@ -1,31 +1,17 @@
 # Vue Dadata
 
-[![npm version](https://badge.fury.io/js/vue-dadata.svg)](https://badge.fury.io/js/vue-dadata)
-[![npm downloads](https://img.shields.io/npm/dw/vue-dadata)](https://badge.fury.io/js/vue-dadata)
-[![NPM license](https://img.shields.io/npm/l/vue-dadata)](https://github.com/ikloster03/vue-dadata/blob/main/LICENSE)
-[![npm type definitions](https://img.shields.io/npm/types/vue-dadata)](https://github.com/ikloster03/vue-dadata)
+[comment]: <> (![Publish]&#40;https://github.com/rusproject/vue-dadata/workflows/Publish/badge.svg&#41;)
 
-[comment]: <> (![Publish]&#40;https://github.com/ikloster03/vue-dadata/workflows/Publish/badge.svg&#41;)
+This is a fork of [this Vue component](https://github.com/ikloster03/vue-dadata), which provides address suggestions using [DaData.ru](https://dadata.ru).
 
-It's a vue component for hinting addresses using [DaData.ru](https://dadata.ru).
+It targets **Vue 3.5+**.
 
-| Version   | Description          |
-|-----------|----------------------|
-| 1.\*.\*   | Old version for vue2 |
-| 2.\*.\*   | New version for vue2 |
-| 3.\*.\*   | New version for vue3 |
+For **Vue 2** and earlier Vue 3 versions (pre-3.5), please refer to [Ivan Monastyrev's original repository](https://github.com/ikloster03/vue-dadata).
 
 ## Install
 
-[npm package](https://www.npmjs.com/package/vue-dadata)
-
 ```bash
-# old version vue2
-$ npm install vue-dadata@1.4.12 --save
-# new version vue2 (in progress)
-$ npm install vue-dadata@2.0.0-beta.2 --save
-# vue3 (in progress)
-$ npm install vue-dadata --save
+$ pnpm install git+https://github.com/rusproject/vue-dadata.git#rewritten
 ```
 
 ## Usage
@@ -42,7 +28,7 @@ $ npm install vue-dadata --save
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
   import { VueDadata } from 'vue-dadata';
-  import 'vue-dadata/dist/style.css';
+  import 'vue-dadata/dist/vue-dadata.css';
 
   export default defineComponent({
     name: 'VueTruncateHtmlExample',
@@ -68,7 +54,7 @@ $ npm install vue-dadata --save
 |------------------|----------|------------|----------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
 | token            | Yes      | `string`   | Auth token DaData.ru                                                                                           | -                                                                                                                        |
 | modelValue       | Yes      | `string`   | v-model for query                                                                                              | -                                                                                                                        |
-| suggestion       | No       | `object`   | v-model for [suggestion](https://github.com/ikloster03/vue-dadata/blob/master/src/types/suggestion.dto.ts#L24) | `undefined`                                                                                                              |
+| suggestion       | No       | `object`   | v-model for [suggestion](https://github.com/rusproject/vue-dadata/blob/rewritten/src/types/suggestion.dto.ts#L24) | `undefined`                                                                                                              |
 | placeholder      | No       | `string`   | Text placeholder                                                                                               | `''`                                                                                                                     |
 | url              | No       | `string`   | special url for dadata api                                                                                     | `'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'`                                                 |
 | debounceWait     | No       | `string`   | waiting time                                                                                                   | `'1000ms'`                                                                                                               |
@@ -77,8 +63,8 @@ $ npm install vue-dadata --save
 | toBound          | No       | `string`   | Dadata bound type TO                                                                                           | `undefined`                                                                                                              |
 | inputName        | No       | `string`   | Input name attribute                                                                                           | `'vue-dadata-input'`                                                                                                     |
 | locationOptions  | No       | `object`   | Location options for choosing cities or countries                                                              | `undefined`                                                                                                              |
-| classes          | No       | `object`   | classes                                                                                                        | [DEFAULT_CLASSES](https://github.com/ikloster03/vue-dadata/blob/master/src/const/classes.const.ts)                       |
-| highlightOptions | No       | `object`   | highlight options for [vue-word-highlighter](https://github.com/kawamataryo/vue-word-highlighter)              | [DEFAULT_HIGHLIGHT_OPTIONS](https://github.com/ikloster03/vue-dadata/blob/master/src/const/highlight-options.const.ts)   |
+| classes          | No       | `object`   | classes                                                                                                        | [DEFAULT_CLASSES](https://github.com/rusproject/vue-dadata/blob/rewritten/src/const/classes.const.ts)                       |
+| highlightOptions | No       | `object`   | highlight options for [vue-word-highlighter](https://github.com/kawamataryo/vue-word-highlighter)              | [DEFAULT_HIGHLIGHT_OPTIONS](https://github.com/rusproject/vue-dadata/blob/rewritten/src/const/highlight-options.const.ts)   |
 | autocomplete     | No       | `boolean`  | can autocomplete query, after blur                                                                             | `undefined`                                                                                                              |
 
 
@@ -90,4 +76,4 @@ $ npm install vue-dadata --save
 - [vue-debounce](https://github.com/dhershman1/vue-debounce)
 - [vue-word-highlighter](https://github.com/kawamataryo/vue-word-highlighter)
 
-Copyright (c) 2019 - 2022 Ivan Monastyrev <ikloster@yandex.ru>. Licensed under the [MIT license](https://github.com/ikloster03/vue-dadata/blob/master/LICENSE).
+Forked from [ikloster03/vue-dadata](https://github.com/ikloster03/vue-dadata)

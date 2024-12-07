@@ -40,14 +40,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ComputedRef } from 'vue';
+import { defineComponent } from 'vue';
+import type { PropType, ComputedRef } from 'vue';
 import WordHighlighter from 'vue-word-highlighter';
-import {
+import { KeyEvent } from './types';
+import type {
   BoundsType,
   LocationOptions,
   VueDadataClasses,
-  KeyEvent,
-  HighlightOptions, Suggestion,
+  HighlightOptions,
+  Suggestion,
 } from './types';
 import { DEFAULT_CLASSES, DEFAULT_HIGHLIGHT_OPTIONS } from './const';
 import useClasses from './classes';

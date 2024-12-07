@@ -1,4 +1,4 @@
-import { ValueOf } from './helpers.types';
+import type { ValueOf } from './helpers.types';
 import { BOUNDS } from '../const';
 
 export type CapitalMarkerType = '0' | '1' | '2' | '3' | '4';

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SuggestionDto, SuggestionPayload, Suggestion } from '../types';
+import type { SuggestionDto, SuggestionPayload, Suggestion } from '../types';
 
 const DEFAULT_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
 

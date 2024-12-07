@@ -1,6 +1,10 @@
 # Сhangelog
 
-[Ссылка на EN changelog](https://github.com/ikloster03/vue-dadata/tree/master/CHANGELOG.md)
+[Ссылка на EN changelog](https://github.com/rusproject/vue-dadata/tree/rewritten/CHANGELOG.md)
+
+## v4.0.0-alpha-1 - 08 декабря 2024
+
+Проект был заново инициализирован с использованием Vue 3.5.13 и Vite 6.0.1 с нуля. Совместимость с более старыми версиями Vue не гарантируется.
 
 ## v1.3.2 - 06 июня 2020 г.
 

@@ -1,6 +1,10 @@
 # Changelog
 
-[Link to RU changelog](https://github.com/ikloster03/vue-dadata/tree/master/ru/CHANGELOG.md)
+[Link to RU changelog](https://github.com/rusproject/vue-dadata/tree/rewritten/ru/CHANGELOG.md)
+
+## v4.0.0-alpha-1 - Dec 08, 2024
+
+Re-initialized the project with Vue 3.5.13 and Vite 6.0.1 from scratch. Compatibility with older Vue versions is not guaranteed.
 
 ## v2.0.0-beta.1 - June 06, 2020
 

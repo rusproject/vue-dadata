@@ -1,5 +1,6 @@
-import { computed, ComputedRef } from 'vue';
-import { HighlightOptions } from './types';
+import { computed } from 'vue';
+import type { ComputedRef } from 'vue';
+import type { HighlightOptions } from './types';
 import { DEFAULT_HIGHLIGHT_OPTIONS } from './const';
 
 const useHighlightOptions = (highlightOptions?: HighlightOptions): ComputedRef<HighlightOptions> => computed(() => ({

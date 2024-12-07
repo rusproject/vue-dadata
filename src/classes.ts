@@ -1,5 +1,6 @@
-import { computed, ComputedRef } from 'vue';
-import { VueDadataClasses } from './types';
+import { computed } from 'vue';
+import type { ComputedRef } from 'vue';
+import type { VueDadataClasses } from './types';
 import { DEFAULT_CLASSES } from './const';
 
 const useClasses = (classes?: VueDadataClasses): ComputedRef<VueDadataClasses> => computed(() => ({

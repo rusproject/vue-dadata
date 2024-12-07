@@ -1,4 +1,4 @@
-import { HighlightOptions } from '../types';
+import type { HighlightOptions } from '../types';
 
 export const DEFAULT_HIGHLIGHT_OPTIONS: HighlightOptions = {
   caseSensitive: false,

@@ -39,7 +39,7 @@ export default defineConfig({
     nav: [
       {
         text: 'Github',
-        link: 'https://github.com/ikloster03/vue-dadata',
+        link: 'https://github.com/rusproject/vue-dadata',
       },
       {
         text: 'NPM',
