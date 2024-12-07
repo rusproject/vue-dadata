@@ -14,17 +14,17 @@
         @keyup.up="onKeyPress($event, KeyEvent.Up)"
         @keyup.down="onKeyPress($event, KeyEvent.Down)"
         @focus="onInputFocus"
-        @blur="onInputBlur">
+        @blur="onInputBlur"
+      />
     </div>
-    <div
-      v-if="inputFocused && suggestionsVisible && !disabled"
-      :class="proxyClasses.suggestions">
+    <div v-if="inputFocused && suggestionsVisible && !disabled" :class="proxyClasses.suggestions">
       <slot
         name="suggestions"
         :suggestion-list="suggestionList"
         :suggestion-index="suggestionIndex"
         :query="queryProxy"
-        :suggestion="suggestionProxy">
+        :suggestion="suggestionProxy"
+      >
         <word-highlighter
           v-for="(suggestionItemList, suggestionIndexList) in suggestionList"
           :key="`suggestion_${suggestionIndexList}`"
@@ -33,7 +33,8 @@
           :class="suggestionIndexList === suggestionIndex ? proxyClasses.suggestionCurrentItem : ''"
           :query="queryProxy"
           :text-to-highlight="suggestionItemList.value"
-          @mousedown="onSuggestionClick(suggestionIndexList)" />
+          @mousedown="onSuggestionClick(suggestionIndexList)"
+        />
       </slot>
     </div>
   </div>
@@ -83,7 +84,7 @@ export default defineComponent({
       default: undefined,
     },
     debounceWait: {
-      type: String || Number as PropType<number | string>,
+      type: String || (Number as PropType<number | string>),
       default: '1000ms',
     },
     disabled: {
@@ -122,7 +123,9 @@ export default defineComponent({
   emits: ['update:modelValue', 'update:suggestion', 'handleError'],
   setup(props, { emit }) {
     const proxyClasses: ComputedRef<VueDadataClasses> = useClasses(props.classes);
-    const proxyHighlightOptions: ComputedRef<HighlightOptions> = useHighlightOptions(props.highlightOptions);
+    const proxyHighlightOptions: ComputedRef<HighlightOptions> = useHighlightOptions(
+      props.highlightOptions,
+    );
     const {
       queryProxy,
       suggestionProxy,

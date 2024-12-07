@@ -5,7 +5,8 @@
       v-model:suggestion="suggestion"
       :highlight-options="highlightOptions"
       :token="token"
-      :autocomplete="true" />
+      :autocomplete="true"
+    />
   </div>
 </template>
 
@@ -38,6 +39,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -12,7 +12,7 @@ Rewrite release for vue2
 
 ## v1.4.6 - June 06, 2020
 
-Add ci/cd 
+Add ci/cd
 
 ## v1.3.2 - June 06, 2020
 

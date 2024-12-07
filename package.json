@@ -14,6 +14,7 @@
   "repository": "https://github.com/rusproject/vue-dadata",
   "license": "MIT",
   "author": "Alex Chexes <alexchexes@gmail.com>",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/types/vue-dadata.es.d.ts",
@@ -22,10 +23,9 @@
     },
     "./*": "./*"
   },
-  "types": "./dist/types/vue-dadata.es.d.ts",
   "main": "./dist/vue-dadata.cjs",
   "module": "./dist/vue-dadata.js",
-  "type": "module",
+  "types": "./dist/types/vue-dadata.es.d.ts",
   "files": [
     "dist",
     "src/**/*.vue",

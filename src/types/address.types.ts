@@ -3,7 +3,7 @@ import { BOUNDS } from '../const';
 
 export type CapitalMarkerType = '0' | '1' | '2' | '3' | '4';
 export type QCGeoType = '0' | '1' | '2' | '3' | '4' | '5';
-export type BoundsType = ValueOf<typeof BOUNDS>
+export type BoundsType = ValueOf<typeof BOUNDS>;
 
 export interface DadataAddress {
   area: string;
