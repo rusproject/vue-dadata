@@ -5,4 +5,5 @@ export interface VueDadataClasses {
   suggestions?: string;
   suggestionItem?: string;
   suggestionCurrentItem?: string;
+  suggestionTextHighlight?: string;
 }

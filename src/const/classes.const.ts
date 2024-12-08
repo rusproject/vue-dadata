@@ -7,4 +7,5 @@ export const DEFAULT_CLASSES: VueDadataClasses = {
   suggestions: 'vue-dadata__suggestions',
   suggestionItem: 'vue-dadata__suggestions-item',
   suggestionCurrentItem: 'vue-dadata__suggestions-item_current',
+  suggestionTextHighlight: 'vue-dadata__suggestion-item-text_highlight',
 };

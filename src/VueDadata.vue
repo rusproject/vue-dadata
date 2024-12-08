@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
 import type { PropType, ComputedRef } from 'vue';
 import WordHighlighter from 'vue-word-highlighter';
 import { KeyEvent } from './types';
@@ -79,6 +80,21 @@ const proxyClasses: ComputedRef<VueDadataClasses> = useClasses(props.classes);
 const proxyHighlightOptions: ComputedRef<HighlightOptions> = useHighlightOptions(
   props.highlightOptions,
 );
+
+const mergedHighlightOptions = computed(() => {
+  const wrapperClass = proxyHighlightOptions.value.wrapperClass
+    ? proxyHighlightOptions.value.wrapperClass
+    : proxyClasses.value.suggestionItem;
+  const highlightClass = proxyHighlightOptions.value.highlightClass
+    ? proxyHighlightOptions.value.highlightClass
+    : proxyClasses.value.suggestionTextHighlight;
+  return {
+    ...proxyHighlightOptions.value,
+    wrapperClass,
+    highlightClass,
+  };
+});
+
 const {
   queryProxy,
   suggestionProxy,
@@ -128,8 +144,7 @@ const {
           :class="suggestionIndexList === suggestionIndex ? proxyClasses.suggestionCurrentItem : ''"
           :query="queryProxy"
           :text-to-highlight="suggestionItemList.value"
-          :wrapper-class="proxyClasses.suggestionItem"
-          v-bind="proxyHighlightOptions"
+          v-bind="mergedHighlightOptions"
           @mousedown="onSuggestionClick(suggestionIndexList)"
         />
       </slot>

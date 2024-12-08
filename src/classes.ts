@@ -11,5 +11,7 @@ export function useClasses(classes?: VueDadataClasses): ComputedRef<VueDadataCla
     suggestions: classes?.suggestions ?? DEFAULT_CLASSES.suggestions,
     suggestionItem: classes?.suggestionItem ?? DEFAULT_CLASSES.suggestionItem,
     suggestionCurrentItem: classes?.suggestionCurrentItem ?? DEFAULT_CLASSES.suggestionCurrentItem,
+    suggestionTextHighlight:
+      classes?.suggestionTextHighlight ?? DEFAULT_CLASSES.suggestionTextHighlight,
   }));
 }

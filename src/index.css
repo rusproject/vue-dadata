@@ -48,3 +48,7 @@
 .vue-dadata__suggestions-item_current {
   background-color: #cf6e06;
 }
+
+.vue-dadata__suggestion-item-text_highlight {
+  background-color: #f1c40f;
+}
