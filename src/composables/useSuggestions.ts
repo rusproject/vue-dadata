@@ -16,7 +16,7 @@ export function useSuggestions(
     toBound?: BoundsType;
     fromBound?: BoundsType;
     locationOptions?: LocationOptions;
-    autocomplete: boolean;
+    selectOnBlur: boolean;
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   emit: (event: 'update:modelValue' | 'update:suggestion' | 'handleError', ...args: any[]) => void,
@@ -147,7 +147,7 @@ export function useSuggestions(
       return;
     }
 
-    if (props.autocomplete) {
+    if (props.selectOnBlur) {
       queryProxy.value = suggestionItem.value ? suggestionItem.value?.value : '';
     }
 

@@ -68,7 +68,7 @@ const props = defineProps({
     type: Object as PropType<HighlightOptions>,
     default: () => DEFAULT_HIGHLIGHT_OPTIONS,
   },
-  autocomplete: {
+  selectOnBlur: {
     type: Boolean,
     default: false,
   },

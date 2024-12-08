@@ -14,7 +14,7 @@ const suggestion = ref(undefined);
     <VueDadata
       v-model="query"
       v-model:suggestion="suggestion"
-      :autocomplete="true"
+      :select-on-blur="true"
       :token="token"
     />
   </div>

@@ -5,7 +5,7 @@
 
 Это vue компонент для подсказок с использованием сервиса [DaData.ru](https://dadata.ru).
 
-[Ссылка на EN документацию](https://github.com/rusproject/vue-dadata/tree/rewritten/README.md)
+Данная документация на русском языке безнадёжно устарела, она будет обновлена позже. Пока что, воспользуйтесь [документацией на английском](https://github.com/rusproject/vue-dadata/tree/rewritten/README.md)
 
 ## Установка
 
@@ -59,7 +59,7 @@ import VueDadata from 'vue-dadata'  Vue.use(VueDadata)
 | query                | Нет         | string                                         | Поле ввода начального состояния                                                                                     |
 | autoload             | Нет         | boolean                                        | Если `true` , то запрос на подсказки будет инициирован в фоновом режиме в созданном хуке                            |
 | onChange             | Нет         | function(suggestion: DadataSuggestion) -> void | Функция вызывается при выборе всплывающей подсказки                                                                 |
-| autocomplete         | Нет         | string                                         | Поле автозаполнения                                                                                                 |
+| selectOnBlur         | Нет         | string                                         |                                                                                                                     |
 | defaultClass         | Нет         | string                                         | Компонент класса по умолчанию, значение по умолчанию - `vue-dadata`                                                 |
 | classes              | Нет         | string                                         | Дополнительные классы                                                                                               |
 | inputName            | Нет         | string                                         | Input name атрибут                                                                                                  |

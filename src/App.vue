@@ -18,8 +18,8 @@ const highlightOptions: HighlightOptions = {
     <VueDadata
       v-model="query"
       v-model:suggestion="suggestion"
-      :autocomplete="true"
       :highlight-options="highlightOptions"
+      :selectOnBlur="true"
       :token="token"
     />
   </div>
