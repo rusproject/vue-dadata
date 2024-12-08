@@ -72,6 +72,23 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /** Controls browser built-in autocompletion. If "off" doesn't work for you, try "one-time-code" or "new-password" */
+  inputAutocomplete: {
+    type: String,
+    default: 'off',
+  },
+  inputAutocapitalize: {
+    type: String,
+    default: 'off',
+  },
+  inputAutocorrect: {
+    type: String,
+    default: 'off',
+  },
+  inputSpellcheck: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['update:modelValue', 'update:suggestion', 'handleError']);
@@ -118,8 +135,12 @@ const {
         :name="inputName"
         v-model="queryProxy"
         :class="proxyClasses.input"
+        :autocapitalize="inputAutocapitalize"
+        :autocomplete="inputAutocomplete"
+        :autocorrect="inputAutocorrect"
         :disabled="disabled"
         :placeholder="placeholder"
+        :spellcheck="inputSpellcheck"
         type="text"
         @blur="onInputBlur"
         @focus="onInputFocus"
