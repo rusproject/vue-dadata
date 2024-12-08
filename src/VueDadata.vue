@@ -173,4 +173,4 @@ const {
   </div>
 </template>
 
-<style src="./index.css"></style>
+<style src="./vue-dadata.css"></style>
