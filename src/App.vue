@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import VueDadata from './VueDadata.vue';
-import './index.css';
 import type { HighlightOptions } from './types';
 
 const token = import.meta.env.VITE_APP_DADATA_API_KEY as string;
