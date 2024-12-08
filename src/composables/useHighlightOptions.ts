@@ -1,7 +1,7 @@
 import { computed } from 'vue';
 import type { ComputedRef } from 'vue';
-import type { HighlightOptions } from './types';
-import { DEFAULT_HIGHLIGHT_OPTIONS } from './const';
+import type { HighlightOptions } from '../types';
+import { DEFAULT_HIGHLIGHT_OPTIONS } from '../const';
 
 export function useHighlightOptions(
   highlightOptions?: HighlightOptions,

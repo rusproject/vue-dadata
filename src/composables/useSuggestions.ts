@@ -1,9 +1,9 @@
 import { computed, ref, watch } from 'vue';
 import type { Ref } from 'vue';
 import { debounce } from 'vue-debounce';
-import { KeyEvent } from './types';
-import type { BoundsType, LocationOptions, Suggestion, SuggestionDto } from './types';
-import { getSuggestions } from './api';
+import { KeyEvent } from '../types';
+import type { BoundsType, LocationOptions, Suggestion, SuggestionDto } from '../types';
+import { getSuggestions } from '../api';
 
 export function useSuggestions(
   props: {

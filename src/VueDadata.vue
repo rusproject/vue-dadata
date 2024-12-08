@@ -11,9 +11,9 @@ import type {
   Suggestion,
 } from './types';
 import { DEFAULT_CLASSES, DEFAULT_HIGHLIGHT_OPTIONS } from './const';
-import { useClasses } from './classes';
-import { useHighlightOptions } from './highlight-options';
-import { useSuggestions } from './suggestions';
+import { useClasses } from './composables/useClasses';
+import { useHighlightOptions } from './composables/useHighlightOptions';
+import { useSuggestions } from './composables/useSuggestions';
 
 const props = defineProps({
   token: {
