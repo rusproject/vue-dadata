@@ -14,7 +14,7 @@ const highlightOptions: HighlightOptions = {
 </script>
 
 <template>
-  <div class="vue-truncate-html-example">
+  <div>
     <VueDadata
       v-model="query"
       v-model:suggestion="suggestion"

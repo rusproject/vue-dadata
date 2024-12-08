@@ -29,7 +29,7 @@ const suggestion = ref(undefined);
 </script>
 
 <template>
-  <div class="vue-truncate-html-example">
+  <div>
     <VueDadata v-model="query" v-model:suggestion="suggestion" :token="token" />
   </div>
 </template>
