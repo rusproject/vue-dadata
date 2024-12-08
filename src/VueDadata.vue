@@ -151,7 +151,10 @@ const {
         @keyup.up="onKeyPress($event, KeyEvent.Up)"
       />
     </div>
-    <div v-if="inputFocused && suggestionsVisible && !disabled" :class="proxyClasses.suggestions">
+    <div
+      v-if="inputFocused && suggestionsVisible && suggestionList.length && !disabled"
+      :class="proxyClasses.suggestions"
+    >
       <slot
         name="suggestions"
         :query="queryProxy"
