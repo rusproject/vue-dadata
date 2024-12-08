@@ -38,7 +38,7 @@ const props = defineProps({
   },
   debounceWait: {
     type: String || (Number as PropType<number | string>),
-    default: '1000ms',
+    default: '100ms',
   },
   disabled: {
     type: Boolean,
