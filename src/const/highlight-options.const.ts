@@ -6,6 +6,6 @@ export const DEFAULT_HIGHLIGHT_OPTIONS: HighlightOptions = {
   highlightTag: 'mark',
   highlightClass: '',
   highlightStyle: '',
-  wrapperTag: 'span',
+  wrapperTag: 'button',
   wrapperClass: '',
 };
