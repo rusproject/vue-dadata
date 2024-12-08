@@ -9,7 +9,6 @@ const token = import.meta.env.VITE_APP_DADATA_API_KEY as string;
 const query = ref('');
 const suggestion = ref(undefined);
 const highlightOptions: HighlightOptions = {
-  highlightClass: 'test',
   highlightTag: 'span',
 };
 </script>
