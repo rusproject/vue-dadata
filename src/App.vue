@@ -13,7 +13,7 @@ const highlightOptions: HighlightOptions = {
 </script>
 
 <template>
-  <div>
+  <main>
     <VueDadata
       v-model="query"
       v-model:suggestion="suggestion"
@@ -21,5 +21,18 @@ const highlightOptions: HighlightOptions = {
       :selectOnBlur="true"
       :token="token"
     />
-  </div>
+  </main>
 </template>
+
+<style>
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 96px 16px 200px;
+}
+</style>
