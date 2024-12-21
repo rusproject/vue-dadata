@@ -1,6 +1,6 @@
 import { computed, ref, watch } from 'vue';
 import type { Ref } from 'vue';
-import { debounce } from 'vue-debounce';
+import { useDebounceFn } from '@vueuse/core';
 import { KeyEvent } from '../types';
 import type { BoundsType, LocationOptions, Suggestion, SuggestionDto } from '../types';
 import { getSuggestions } from '../api';
@@ -12,7 +12,7 @@ export function useSuggestions(
     token: string;
     url?: string;
     disabled?: boolean;
-    debounceWait?: number | string;
+    debounceWait?: number;
     toBound?: BoundsType;
     fromBound?: BoundsType;
     locationOptions?: LocationOptions;
@@ -59,12 +59,9 @@ export function useSuggestions(
     }
   };
 
-  const fetchWithDebounce = debounce(
-    async () => {
-      suggestionList.value = await fetchSuggestions();
-    },
-    props.debounceWait as string | number,
-  );
+  const fetchWithDebounce = useDebounceFn(async () => {
+    suggestionList.value = await fetchSuggestions();
+  }, props.debounceWait);
 
   watch(queryProxy, async () => {
     fetchWithDebounce();
