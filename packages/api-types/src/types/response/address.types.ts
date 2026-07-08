@@ -35,6 +35,15 @@ export type AddressDivisionsAdministrative = {
     | 'planning_structure']?: null | AddressDivisionsAdministrativeItem;
 };
 
+export type AddressDivisionsMunicipal = {
+  [K in
+    | 'area'
+    | 'sub_area'
+    | 'city'
+    | 'settlement'
+    | 'planning_structure']?: null | AddressDivisionsAdministrativeItem;
+};
+
 export interface AddressDivisions {
   /**
    * Компоненты адреса в административном делении:
@@ -46,8 +55,14 @@ export interface AddressDivisions {
    * - `planning_structure` — планировочная структура.
    */
   administrative: AddressDivisionsAdministrative;
-  /** Поле отсутствует в новых версиях API, в старых не заполнялось. */
-  municipal?: null;
+  /**
+   * На 08.07.2026 формат поля официально не задокументирован.
+   *
+   * В Подсказках: присылается начиная с 08.07.2026.
+   *
+   * В Стандартизации: ранее присутствовало но всегда null, далее полностью исчезло.
+   */
+  municipal?: null | AddressDivisionsMunicipal;
 }
 
 export type FiasAddressFiasLevel =

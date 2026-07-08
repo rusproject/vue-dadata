@@ -4940,6 +4940,61 @@
           }
         }
       },
+      "AddressDivisionsMunicipal": {
+        "type": "object",
+        "properties": {
+          "area": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AddressDivisionsAdministrativeItem"
+              }
+            ]
+          },
+          "sub_area": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AddressDivisionsAdministrativeItem"
+              }
+            ]
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AddressDivisionsAdministrativeItem"
+              }
+            ]
+          },
+          "settlement": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AddressDivisionsAdministrativeItem"
+              }
+            ]
+          },
+          "planning_structure": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AddressDivisionsAdministrativeItem"
+              }
+            ]
+          }
+        }
+      },
       "AddressDivisions": {
         "type": "object",
         "properties": {
@@ -4948,8 +5003,15 @@
             "description": "Компоненты адреса в административном делении:\n\n- `area` — район региона;\n- `city` — город;\n- `city_district` — район города;\n- `settlement` — населенный пункт;\n- `planning_structure` — планировочная структура."
           },
           "municipal": {
-            "type": "null",
-            "description": "Поле отсутствует в новых версиях API, в старых не заполнялось."
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/AddressDivisionsMunicipal"
+              }
+            ],
+            "description": "На 08.07.2026 формат поля официально не задокументирован.\n\nВ Подсказках: присылается начиная с 08.07.2026.\n\nВ Стандартизации: ранее присутствовало но всегда null, далее полностью исчезло."
           }
         },
         "required": [
