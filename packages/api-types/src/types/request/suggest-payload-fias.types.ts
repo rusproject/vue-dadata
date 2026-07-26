@@ -117,6 +117,7 @@ export interface SuggestFiasPayload extends BaseSuggestPayload {
    * (поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.
    *
    * @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=967835974#:~:text=Адрес%20без%20региона%20и%20города
+   * @default false
    */
   restrict_value?: boolean | null;
 }

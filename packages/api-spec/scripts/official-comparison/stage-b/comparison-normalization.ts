@@ -10,8 +10,10 @@ type CompositionKey = 'anyOf' | 'oneOf';
 
 export interface ComparisonNormalizationDecision {
   branchRefs?: string[];
-  compositionKey: CompositionKey;
+  canonicalName?: string;
+  compositionKey?: CompositionKey;
   kind:
+    | 'aliased-schema-component'
     | 'flattened-nullable-composition'
     | 'folded-object-anyof'
     | 'inlined-nullable-object-ref'
@@ -19,6 +21,8 @@ export interface ComparisonNormalizationDecision {
   objectBranchCount?: number;
   path: string;
   ref?: string;
+  rewrittenRefCount?: number;
+  sourceName?: string;
 }
 
 export const COMPARISON_INFO = {

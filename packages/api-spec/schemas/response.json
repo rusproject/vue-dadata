@@ -241,6 +241,7 @@
       "anyOf": [
         { "type": "string", "const": "0" },
         { "type": "string", "enum": ["1", "3", "4", "5", "6", "65", "7", "8"] },
+        { "type": "string", "const": "75" },
         { "type": "string", "const": "9" },
         { "type": "string", "const": "90" },
         { "type": "string", "const": "91" },
@@ -974,7 +975,7 @@
         },
         "fias_level": {
           "$ref": "#/definitions/CleanAddressFiasLevel",
-          "description": "Уровень детализации, до которого адрес найден в ФИАС:\n- 0 — страна\n- 1 — регион\n- 3 — район\n- 4 — город\n- 5 — район города\n- 6 — населенный пункт\n- 7 — улица\n- 8 — дом\n- 9 — квартира (подсказки: v21.4+)\n- 65 — планировочная структура\n- 90 — доп. территория\n- 91 — улица в доп. территории\n- -1 — иностранный или пустой."
+          "description": "Уровень детализации, до которого адрес найден в ФИАС:\n- 0 — страна\n- 1 — регион\n- 3 — район\n- 4 — город\n- 5 — район города\n- 6 — населенный пункт\n- 7 — улица\n- 8 — дом\n- 9 — квартира (подсказки: v21.4+)\n- 65 — планировочная структура\n- 75 — земельный участок\n- 90 — доп. территория\n- 91 — улица в доп. территории\n- -1 — иностранный или пустой."
         },
         "postal_code": {
           "type": ["null", "string"],
@@ -2595,12 +2596,37 @@
       "required": ["suggestions"],
       "description": "Объект с массивом подсказок"
     },
+    "AsIsClean": {
+      "type": "object",
+      "properties": { "source": { "type": "string", "description": "Исходное значение." } },
+      "required": ["source"],
+      "description": "Поле составной записи, которое не нужно стандартизировать."
+    },
+    "SimplePartyNameClean": {
+      "type": "object",
+      "properties": { "source": {}, "result": {}, "stem": {}, "opf": {}, "qc": {} },
+      "additionalProperties": {},
+      "description": "Результат обработки недокументированного типа `SIMPLE_PARTY_NAME`.\n\nФормат ответа не является публичным контрактом «Дадаты», поэтому значения\nизвестных полей и дополнительные поля намеренно остаются неизвестными."
+    },
     "CleanCombinedResponse": {
       "type": "object",
       "properties": {
         "structure": {
           "type": "array",
-          "items": { "type": "string", "enum": ["AS_IS", "ADDRESS", "PHONE", "PASSPORT", "NAME", "EMAIL", "VEHICLE"] },
+          "items": {
+            "type": "string",
+            "enum": [
+              "AS_IS",
+              "ADDRESS",
+              "PHONE",
+              "PASSPORT",
+              "NAME",
+              "BIRTHDATE",
+              "EMAIL",
+              "VEHICLE",
+              "SIMPLE_PARTY_NAME"
+            ]
+          },
           "description": "Порядок и тип данных в поле `data`.\n\nНапример, если в поле `data` три объекта - имя, адрес и телефон,\nто в поле `structure` будет `[ \"NAME\", \"ADDRESS\", \"PHONE\" ]`, соответственно."
         },
         "data": {
@@ -2609,12 +2635,15 @@
             "type": "array",
             "items": {
               "anyOf": [
+                { "$ref": "#/definitions/AsIsClean" },
                 { "$ref": "#/definitions/AddressClean" },
                 { "$ref": "#/definitions/PhoneClean" },
                 { "$ref": "#/definitions/PassportClean" },
                 { "$ref": "#/definitions/FioClean" },
+                { "$ref": "#/definitions/DateClean" },
                 { "$ref": "#/definitions/EmailClean" },
-                { "$ref": "#/definitions/VehicleClean" }
+                { "$ref": "#/definitions/VehicleClean" },
+                { "$ref": "#/definitions/SimplePartyNameClean" }
               ]
             }
           },
@@ -2628,7 +2657,7 @@
     },
     "CleanFieldType": {
       "type": "string",
-      "enum": ["AS_IS", "ADDRESS", "PHONE", "PASSPORT", "NAME", "EMAIL", "VEHICLE"]
+      "enum": ["AS_IS", "ADDRESS", "PHONE", "PASSPORT", "NAME", "BIRTHDATE", "EMAIL", "VEHICLE", "SIMPLE_PARTY_NAME"]
     },
     "PhoneClean": {
       "type": "object",
@@ -2739,6 +2768,24 @@
         "qc"
       ],
       "description": "@see https://dadata.ru/api/clean/name/"
+    },
+    "DateClean": {
+      "type": "object",
+      "properties": {
+        "source": { "type": "string", "description": "Исходная дата" },
+        "birthdate": {
+          "type": ["string", "null"],
+          "description": "Стандартизованная дата\n@example '24.03.2012'",
+          "examples": ["24.03.2012"]
+        },
+        "qc": {
+          "type": "number",
+          "enum": [0, 1, 2],
+          "description": "Код проверки\n\nТребуется ли вручную проверить распознанное значение\n\n| Код | Описание                                                     | Проверить? |\n| --- | ------------------------------------------------------------ | ---------- |\n| 0   | Исходное значение распознано уверенно                        | нет        |\n| 2   | Исходное значение пустое или заведомо «мусорное»             | нет        |\n| 1   | Исходное значение распознано с допущениями или не распознано | да         |"
+        }
+      },
+      "required": ["source", "birthdate", "qc"],
+      "description": "Стандартизация дат\n@see https://dadata.ru/api/clean/birthdate/"
     },
     "EmailClean": {
       "type": "object",
@@ -2859,24 +2906,6 @@
       },
       "required": ["suggestions"],
       "description": "Объект с массивом подсказок"
-    },
-    "DateClean": {
-      "type": "object",
-      "properties": {
-        "source": { "type": "string", "description": "Исходная дата" },
-        "birthdate": {
-          "type": ["string", "null"],
-          "description": "Стандартизованная дата\n@example '24.03.2012'",
-          "examples": ["24.03.2012"]
-        },
-        "qc": {
-          "type": "number",
-          "enum": [0, 1, 2],
-          "description": "Код проверки\n\nТребуется ли вручную проверить распознанное значение\n\n| Код | Описание                                                     | Проверить? |\n| --- | ------------------------------------------------------------ | ---------- |\n| 0   | Исходное значение распознано уверенно                        | нет        |\n| 2   | Исходное значение пустое или заведомо «мусорное»             | нет        |\n| 1   | Исходное значение распознано с допущениями или не распознано | да         |"
-        }
-      },
-      "required": ["source", "birthdate", "qc"],
-      "description": "Стандартизация дат\n@see https://dadata.ru/api/clean/birthdate/"
     },
     "CleanDateResponse": {
       "type": "array",

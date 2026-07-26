@@ -5,6 +5,10 @@ import { HTTP_METHODS, type HttpMethod, sortPaths } from '../openapi.js';
 import { type AnyOfFoldingRule, applyAnyOfFoldingRules } from './anyof-folding.js';
 import { type AnyOfSelectionRule, applyAnyOfSelectionRules } from './anyof-selection.js';
 import { COMPARISON_INFO, normalizeComparisonDocument } from './comparison-normalization.js';
+import {
+  applySchemaComponentAliasRules,
+  type SchemaComponentAliasRule,
+} from './schema-component-aliases.js';
 import type { RevisionSliceResult } from './types.js';
 
 /** Extracts the projected path+method inventory that Stage B is allowed to compare. */
@@ -40,6 +44,7 @@ export function buildComparableRevisionSlice(
   comparableOperations: Map<string, Set<HttpMethod>>,
   anyOfSelectionRules: AnyOfSelectionRule[],
   anyOfFoldingRules: AnyOfFoldingRule[],
+  schemaComponentAliasRules: SchemaComponentAliasRule[],
   ourSpec: OpenAPIV3_1.Document,
 ): { document: OpenAPIV3_1.Document; result: RevisionSliceResult } {
   const paths: OpenAPIV3_1.PathsObject = {};
@@ -87,6 +92,9 @@ export function buildComparableRevisionSlice(
   const normalizationDecisions = normalizeComparisonDocument(document, document.openapi ?? '3.1.1');
   normalizationDecisions.push(...applyAnyOfSelectionRules(document, anyOfSelectionRules));
   normalizationDecisions.push(...applyAnyOfFoldingRules(document, anyOfFoldingRules));
+  normalizationDecisions.push(
+    ...applySchemaComponentAliasRules(document, schemaComponentAliasRules),
+  );
 
   return {
     document,

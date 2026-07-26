@@ -9,6 +9,7 @@ import {
   type ExpectedObjectBranch,
 } from './anyof-folding.js';
 import type { AnyOfSelectionRule } from './anyof-selection.js';
+import type { SchemaComponentAliasRule } from './schema-component-aliases.js';
 import {
   assertCanonicalSchemaPath,
   type ComparisonTarget,
@@ -18,6 +19,7 @@ import {
 export interface ComparisonCuration {
   anyOfFolding: AnyOfFoldingRule[];
   anyOfSelections: AnyOfSelectionRule[];
+  schemaComponentAliases: SchemaComponentAliasRule[];
 }
 
 /** Reads Stage B comparison curation from one official-family curation file. */
@@ -39,19 +41,48 @@ export function readComparisonCuration(
   const comparison = parsed.comparison;
 
   if (comparison === undefined) {
-    return { anyOfFolding: [], anyOfSelections: [] };
+    return { anyOfFolding: [], anyOfSelections: [], schemaComponentAliases: [] };
   }
 
   if (!isRecord(comparison)) {
     throw new Error('comparison must be an object.');
   }
 
-  assertOnlyKeys(comparison, ['anyOfFolding', 'anyOfSelections'], 'comparison');
+  assertOnlyKeys(
+    comparison,
+    ['anyOfFolding', 'anyOfSelections', 'schemaComponentAliases'],
+    'comparison',
+  );
 
   return {
     anyOfFolding: parseAnyOfFoldingRules(comparison.anyOfFolding),
     anyOfSelections: parseAnyOfSelectionRules(comparison.anyOfSelections),
+    schemaComponentAliases: parseSchemaComponentAliasRules(comparison.schemaComponentAliases),
   };
+}
+
+/** Parses explicit schema-component aliases used only by the selected comparison side. */
+function parseSchemaComponentAliasRules(value: unknown): SchemaComponentAliasRule[] {
+  if (value === undefined) {
+    return [];
+  }
+
+  if (!Array.isArray(value)) {
+    throw new Error('comparison.schemaComponentAliases must be an array.');
+  }
+
+  return value.map((item, index) => {
+    const path = `comparison.schemaComponentAliases[${index}]`;
+    const record = requireRecord(item, path);
+
+    assertOnlyKeys(record, ['canonicalName', 'sourceName', 'target'], path);
+
+    return {
+      canonicalName: requireString(record.canonicalName, `${path}.canonicalName`),
+      sourceName: requireString(record.sourceName, `${path}.sourceName`),
+      target: requireTarget(record.target, `${path}.target`),
+    };
+  });
 }
 
 /** Parses explicit anyOf branch-selection rules from Stage B curation. */

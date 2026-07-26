@@ -4661,7 +4661,8 @@
           },
           "restrict_value": {
             "type": ["boolean", "null"],
-            "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=1023737934#id-Ограничениепоназваниюадресногообъекта-Адресбезрегионаигорода\n- @see https://confluence.hflabs.ru/display/SGTDOC/address.value#address.value-Параметрrestrict_value"
+            "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=1023737934#id-Ограничениепоназваниюадресногообъекта-Адресбезрегионаигорода\n- @see https://confluence.hflabs.ru/display/SGTDOC/address.value#address.value-Параметрrestrict_value\n\n@default false",
+            "default": false
           },
           "locations_geo": {
             "anyOf": [
@@ -6238,7 +6239,8 @@
           },
           "restrict_value": {
             "type": ["boolean", "null"],
-            "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n@see https://confluence.hflabs.ru/pages/viewpage.action?pageId=967835974#:~:text=Адрес%20без%20региона%20и%20города"
+            "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n@see https://confluence.hflabs.ru/pages/viewpage.action?pageId=967835974#:~:text=Адрес%20без%20региона%20и%20города\n@default false",
+            "default": false
           }
         },
         "required": ["query"],
@@ -10229,7 +10231,8 @@
                 "type": "null"
               }
             ],
-            "description": "Пол (`UNKNOWN` / `MALE` / `FEMALE`)"
+            "description": "Пол (`UNKNOWN` / `MALE` / `FEMALE`)\n\n@default 'UNKNOWN'",
+            "default": "UNKNOWN"
           },
           "parts": {
             "anyOf": [
@@ -12740,6 +12743,10 @@
           },
           {
             "type": "string",
+            "const": "75"
+          },
+          {
+            "type": "string",
             "const": "9"
           },
           {
@@ -12808,7 +12815,7 @@
           },
           "fias_level": {
             "$ref": "#/components/schemas/CleanAddressFiasLevel",
-            "description": "Уровень детализации, до которого адрес найден в ФИАС:\n- 0 — страна\n- 1 — регион\n- 3 — район\n- 4 — город\n- 5 — район города\n- 6 — населенный пункт\n- 7 — улица\n- 8 — дом\n- 9 — квартира (подсказки: v21.4+)\n- 65 — планировочная структура\n- 90 — доп. территория\n- 91 — улица в доп. территории\n- -1 — иностранный или пустой."
+            "description": "Уровень детализации, до которого адрес найден в ФИАС:\n- 0 — страна\n- 1 — регион\n- 3 — район\n- 4 — город\n- 5 — район города\n- 6 — населенный пункт\n- 7 — улица\n- 8 — дом\n- 9 — квартира (подсказки: v21.4+)\n- 65 — планировочная структура\n- 75 — земельный участок\n- 90 — доп. территория\n- 91 — улица в доп. территории\n- -1 — иностранный или пустой."
           },
           "postal_code": {
             "type": ["null", "string"],
@@ -13671,7 +13678,17 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": ["AS_IS", "ADDRESS", "PHONE", "PASSPORT", "NAME", "EMAIL", "VEHICLE"]
+              "enum": [
+                "AS_IS",
+                "ADDRESS",
+                "PHONE",
+                "PASSPORT",
+                "NAME",
+                "BIRTHDATE",
+                "EMAIL",
+                "VEHICLE",
+                "SIMPLE_PARTY_NAME"
+              ]
             },
             "description": "Поле `structure` определяет тип данных в поле `data`.\n\nНапример, если нужно стандартизировать одновременно имя, адрес и телефон,\nто поле `structure` должно иметь вид `[ \"NAME\", \"ADDRESS\", \"PHONE\" ]`,\nа в массиве в поле `data` - исходные имя, адрес и телефон в том же порядке"
           },
@@ -13689,7 +13706,30 @@
           }
         },
         "required": ["structure", "data"],
-        "description": "Формат запроса для стандартизации составной записи с контактными данными, например:\n- ФИО + адрес + телефон + телефон\n- Дата рождения + паспорт\n- Адрес + email\n\nПример запроса:\n```\n{\n  structure: [ \"NAME\", \"ADDRESS\", \"PHONE\" ],\n  data: [\n    [\n        \"Федотов Алексей\",\n        \"Москва, Сухонская улица, 11 кв 89\",\n        \"8 916 823 3454\"\n    ]\n  ]\n}\n```\n\nИз чего состоит запрос в примере:\n- `structure` — структура записи, содержит четыре поля:\n  - `AS_IS` — оставить как есть (не стандартизировать),\n  - `NAME` — разобрать как ФИО,\n  - `ADDRESS` — разобрать как адрес,\n  - `PHONE` — разобрать как телефон.\n- `data` — составная запись из 4 полей (№, ФИО, адрес, телефон).\n\nТипы полей:\n- `ADDRESS` - Почтовый адрес\n- `PHONE` - Телефон\n- `PASSPORT` - Номер и серия паспорта\n- `NAME` - ФИО\n- `EMAIL` - Адрес электронной почты\n- `VEHICLE` - Марка и модель автомобиля\n- `AS_IS` - Скопировать поле в ответ «как есть»\n\nКоличество полей в `data` не должно быть больше указанного в `structure`.\n\nОграничения:\n- В запросе разрешено передавать только одну запись.\n- Максимальное количество полей в одной записи:\n  - 1 ФИО,\n  - 3 адреса,\n  - 3 телефона,\n  - 3 email,\n  - 1 дата рождения,\n  - 1 паспорт,\n  - 1 автомобиль\n\n@see https://dadata.ru/api/clean/record/"
+        "description": "Формат запроса для стандартизации составной записи с контактными данными, например:\n- ФИО + адрес + телефон + телефон\n- Дата рождения + паспорт\n- Адрес + email\n\nПример запроса:\n```\n{\n  structure: [ \"NAME\", \"ADDRESS\", \"PHONE\" ],\n  data: [\n    [\n        \"Федотов Алексей\",\n        \"Москва, Сухонская улица, 11 кв 89\",\n        \"8 916 823 3454\"\n    ]\n  ]\n}\n```\n\nИз чего состоит запрос в примере:\n- `structure` — структура записи, содержит четыре поля:\n  - `AS_IS` — оставить как есть (не стандартизировать),\n  - `NAME` — разобрать как ФИО,\n  - `ADDRESS` — разобрать как адрес,\n  - `PHONE` — разобрать как телефон.\n- `data` — составная запись из 4 полей (№, ФИО, адрес, телефон).\n\nТипы полей:\n- `ADDRESS` - Почтовый адрес\n- `PHONE` - Телефон\n- `PASSPORT` - Номер и серия паспорта\n- `NAME` - ФИО\n- `BIRTHDATE` - Дата рождения\n- `EMAIL` - Адрес электронной почты\n- `VEHICLE` - Марка и модель автомобиля\n- `AS_IS` - Скопировать поле в ответ «как есть»\n- `SIMPLE_PARTY_NAME` - Наименование организации (недокументированный тип)\n\nКоличество полей в `data` не должно быть больше указанного в `structure`.\n\nОграничения:\n- В запросе разрешено передавать только одну запись.\n- Максимальное количество полей в одной записи:\n  - 1 ФИО,\n  - 3 адреса,\n  - 3 телефона,\n  - 3 email,\n  - 1 дата рождения,\n  - 1 паспорт,\n  - 1 автомобиль\n\n@see https://dadata.ru/api/clean/record/"
+      },
+      "AsIsClean": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Исходное значение."
+          }
+        },
+        "required": ["source"],
+        "description": "Поле составной записи, которое не нужно стандартизировать."
+      },
+      "SimplePartyNameClean": {
+        "type": "object",
+        "properties": {
+          "source": {},
+          "result": {},
+          "stem": {},
+          "opf": {},
+          "qc": {}
+        },
+        "additionalProperties": {},
+        "description": "Результат обработки недокументированного типа `SIMPLE_PARTY_NAME`.\n\nФормат ответа не является публичным контрактом «Дадаты», поэтому значения\nизвестных полей и дополнительные поля намеренно остаются неизвестными."
       },
       "CleanCombinedResponse": {
         "type": "object",
@@ -13698,7 +13738,17 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": ["AS_IS", "ADDRESS", "PHONE", "PASSPORT", "NAME", "EMAIL", "VEHICLE"]
+              "enum": [
+                "AS_IS",
+                "ADDRESS",
+                "PHONE",
+                "PASSPORT",
+                "NAME",
+                "BIRTHDATE",
+                "EMAIL",
+                "VEHICLE",
+                "SIMPLE_PARTY_NAME"
+              ]
             },
             "description": "Порядок и тип данных в поле `data`.\n\nНапример, если в поле `data` три объекта - имя, адрес и телефон,\nто в поле `structure` будет `[ \"NAME\", \"ADDRESS\", \"PHONE\" ]`, соответственно."
           },
@@ -13708,6 +13758,9 @@
               "type": "array",
               "items": {
                 "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AsIsClean"
+                  },
                   {
                     "$ref": "#/components/schemas/AddressClean"
                   },
@@ -13721,10 +13774,16 @@
                     "$ref": "#/components/schemas/FioClean"
                   },
                   {
+                    "$ref": "#/components/schemas/DateClean"
+                  },
+                  {
                     "$ref": "#/components/schemas/EmailClean"
                   },
                   {
                     "$ref": "#/components/schemas/VehicleClean"
+                  },
+                  {
+                    "$ref": "#/components/schemas/SimplePartyNameClean"
                   }
                 ]
               }

@@ -19,6 +19,8 @@
     "compare:official": "pnpm --filter @dadata-sdk/api-spec compare:official",
     "compare:official:cleaner-stage-a": "pnpm --filter @dadata-sdk/api-spec compare:official:cleaner-stage-a",
     "compare:official:cleaner-stage-b": "pnpm --filter @dadata-sdk/api-spec compare:official:cleaner-stage-b",
+    "compare:official:cleaner-stage-b:check-snapshot": "pnpm --filter @dadata-sdk/api-spec compare:official:cleaner-stage-b:check-snapshot",
+    "compare:official:cleaner-stage-b:update-snapshot": "pnpm --filter @dadata-sdk/api-spec compare:official:cleaner-stage-b:update-snapshot",
     "compare:official:profile-stage-a": "pnpm --filter @dadata-sdk/api-spec compare:official:profile-stage-a",
     "compare:official:profile-stage-b": "pnpm --filter @dadata-sdk/api-spec compare:official:profile-stage-b",
     "compare:official:profile-stage-b:check-snapshot": "pnpm --filter @dadata-sdk/api-spec compare:official:profile-stage-b:check-snapshot",

@@ -147,6 +147,8 @@ export interface SuggestAddressPayload extends BaseSuggestPayload {
    * - @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017
    * - @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=1023737934#id-Ограничениепоназваниюадресногообъекта-Адресбезрегионаигорода
    * - @see https://confluence.hflabs.ru/display/SGTDOC/address.value#address.value-Параметрrestrict_value
+   *
+   * @default false
    */
   restrict_value?: boolean | null;
 

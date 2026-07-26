@@ -1,8 +1,10 @@
 /findAffiliated/party POST request application/json count schema-max-changed from=null to=300
 /findAffiliated/party POST request application/json query schema-maxLength-changed from=null to=300
+/findAffiliated/party POST request application/json scope schema-default-changed from=null to=["FOUNDERS","MANAGERS"]
 /findAffiliated/party POST response 200 application/json suggestions schema-required-added added="suggestions"
 /findAffiliated/party POST response 200 application/json suggestions schema-type-changed added=[] removed=["null"]
 /findAffiliated/party POST response 200 application/json suggestions/items/data schema-required-added added="data"
+/findAffiliated/party POST response 200 application/json suggestions/items/data/anyOf schema-anyOf-changed added=[{"component":"PartyIndividual","index":1},{"component":"PartyLegal","index":0}] removed=[{"component":"IndividualParty","index":1},{"component":"LegalParty","index":0}]
 /findAffiliated/party POST response 200 application/json suggestions/items/unrestricted_value schema-required-added added="unrestricted_value"
 /findAffiliated/party POST response 200 application/json suggestions/items/unrestricted_value schema-type-changed added=[] removed=["null"]
 /findAffiliated/party POST response 200 application/json suggestions/items/value schema-required-added added="value"
@@ -40,11 +42,7 @@
 /findByEmail/company POST response 200 application/json suggestions/items/data/email/qc schema-required-added added="qc"
 /findByEmail/company POST response 200 application/json suggestions/items/data/email/qc schema-type-changed added=[] removed=["string"]
 /findByEmail/company POST response 200 application/json suggestions/items/data/email/source schema-required-added added="source"
-/findByEmail/company POST response 200 application/json suggestions/items/data/email/type schema-enum-value-added added="CORPORATE"
-/findByEmail/company POST response 200 application/json suggestions/items/data/email/type schema-enum-value-added added="DISPOSABLE"
-/findByEmail/company POST response 200 application/json suggestions/items/data/email/type schema-enum-value-added added="PERSONAL"
-/findByEmail/company POST response 200 application/json suggestions/items/data/email/type schema-enum-value-added added="ROLE"
-/findByEmail/company POST response 200 application/json suggestions/items/data/email/type schema-enum-value-added added=null
+/findByEmail/company POST response 200 application/json suggestions/items/data/email/type schema-enum-added added=["CORPORATE","DISPOSABLE","PERSONAL","ROLE",null]
 /findByEmail/company POST response 200 application/json suggestions/items/data/email/type schema-required-added added="type"
 /findByEmail/company POST response 200 application/json suggestions/items/unrestricted_value schema-required-added added="unrestricted_value"
 /findByEmail/company POST response 200 application/json suggestions/items/unrestricted_value schema-type-changed added=[] removed=["null"]
@@ -59,25 +57,10 @@
 /findByEmail/company POST response 429 <response> response-status-added
 /findByEmail/company POST response 5XX <response> response-status-added
 /findById/address POST request application/json count schema-max-changed from=null to=20
-/findById/address POST request application/json from_bound/value schema-enum-value-added added="area"
-/findById/address POST request application/json from_bound/value schema-enum-value-added added="city"
-/findById/address POST request application/json from_bound/value schema-enum-value-added added="country"
-/findById/address POST request application/json from_bound/value schema-enum-value-added added="flat"
-/findById/address POST request application/json from_bound/value schema-enum-value-added added="house"
-/findById/address POST request application/json from_bound/value schema-enum-value-added added="planning_structure"
-/findById/address POST request application/json from_bound/value schema-enum-value-added added="region"
-/findById/address POST request application/json from_bound/value schema-enum-value-added added="settlement"
-/findById/address POST request application/json from_bound/value schema-enum-value-added added="street"
+/findById/address POST request application/json division schema-default-changed from=null to="ADMINISTRATIVE"
+/findById/address POST request application/json from_bound/value schema-enum-added added=["area","city","country","flat","house","planning_structure","region","settlement","street"]
 /findById/address POST request application/json query schema-maxLength-changed from=null to=300
-/findById/address POST request application/json to_bound/value schema-enum-value-added added="area"
-/findById/address POST request application/json to_bound/value schema-enum-value-added added="city"
-/findById/address POST request application/json to_bound/value schema-enum-value-added added="country"
-/findById/address POST request application/json to_bound/value schema-enum-value-added added="flat"
-/findById/address POST request application/json to_bound/value schema-enum-value-added added="house"
-/findById/address POST request application/json to_bound/value schema-enum-value-added added="planning_structure"
-/findById/address POST request application/json to_bound/value schema-enum-value-added added="region"
-/findById/address POST request application/json to_bound/value schema-enum-value-added added="settlement"
-/findById/address POST request application/json to_bound/value schema-enum-value-added added="street"
+/findById/address POST request application/json to_bound/value schema-enum-added added=["area","city","country","flat","house","planning_structure","region","settlement","street"]
 /findById/address POST response 200 application/json suggestions schema-required-added added="suggestions"
 /findById/address POST response 200 application/json suggestions schema-type-changed added=[] removed=["null"]
 /findById/address POST response 200 application/json suggestions/items/data schema-required-added added="data"
@@ -88,21 +71,12 @@
 /findById/address POST response 200 application/json suggestions/items/data/area_type_full schema-required-added added="area_type_full"
 /findById/address POST response 200 application/json suggestions/items/data/area_with_type schema-required-added added="area_with_type"
 /findById/address POST response 200 application/json suggestions/items/data/beltway_distance schema-required-added added="beltway_distance"
-/findById/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="IN_KAD"
-/findById/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="IN_MKAD"
-/findById/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="OUT_KAD"
-/findById/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="OUT_MKAD"
-/findById/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added=null
+/findById/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-added added=["IN_KAD","IN_MKAD","OUT_KAD","OUT_MKAD",null]
 /findById/address POST response 200 application/json suggestions/items/data/beltway_hit schema-required-added added="beltway_hit"
 /findById/address POST response 200 application/json suggestions/items/data/block schema-required-added added="block"
 /findById/address POST response 200 application/json suggestions/items/data/block_type schema-required-added added="block_type"
 /findById/address POST response 200 application/json suggestions/items/data/block_type_full schema-required-added added="block_type_full"
-/findById/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="0"
-/findById/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="1"
-/findById/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="2"
-/findById/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="3"
-/findById/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="4"
-/findById/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added=null
+/findById/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-added added=["0","1","2","3","4",null]
 /findById/address POST response 200 application/json suggestions/items/data/capital_marker schema-required-added added="capital_marker"
 /findById/address POST response 200 application/json suggestions/items/data/city schema-required-added added="city"
 /findById/address POST response 200 application/json suggestions/items/data/city_area schema-required-added added="city_area"
@@ -194,6 +168,7 @@
 /findById/address POST response 200 application/json suggestions/items/data/fias_id schema-required-added added="fias_id"
 /findById/address POST response 200 application/json suggestions/items/data/fias_level schema-required-added added="fias_level"
 /findById/address POST response 200 application/json suggestions/items/data/fias_level schema-type-changed added=[] removed=["null","string"]
+/findById/address POST response 200 application/json suggestions/items/data/fias_level/anyOf schema-anyOf-changed added=[{"component":"AddressFiasLevel","index":1},{"index":0}] removed=[]
 /findById/address POST response 200 application/json suggestions/items/data/flat schema-required-added added="flat"
 /findById/address POST response 200 application/json suggestions/items/data/flat_area schema-required-added added="flat_area"
 /findById/address POST response 200 application/json suggestions/items/data/flat_price schema-required-added added="flat_price"
@@ -219,14 +194,7 @@
 /findById/address POST response 200 application/json suggestions/items/data/postal_code schema-required-added added="postal_code"
 /findById/address POST response 200 application/json suggestions/items/data/qc schema-required-added added="qc"
 /findById/address POST response 200 application/json suggestions/items/data/qc_complete schema-required-added added="qc_complete"
-/findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="0"
-/findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="1"
-/findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="2"
-/findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="3"
-/findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="4"
-/findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="5"
-/findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="6"
-/findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added=null
+/findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-added added=["0","1","2","3","4","5","6",null]
 /findById/address POST response 200 application/json suggestions/items/data/qc_geo schema-required-added added="qc_geo"
 /findById/address POST response 200 application/json suggestions/items/data/qc_house schema-required-added added="qc_house"
 /findById/address POST response 200 application/json suggestions/items/data/region schema-required-added added="region"
@@ -280,21 +248,12 @@
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/area_type_full schema-required-added added="area_type_full"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/area_with_type schema-required-added added="area_with_type"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/beltway_distance schema-required-added added="beltway_distance"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added="IN_KAD"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added="IN_MKAD"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added="OUT_KAD"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added="OUT_MKAD"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added=null
+/findById/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-added added=["IN_KAD","IN_MKAD","OUT_KAD","OUT_MKAD",null]
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-required-added added="beltway_hit"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/block schema-required-added added="block"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/block_type schema-required-added added="block_type"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/block_type_full schema-required-added added="block_type_full"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="0"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="1"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="2"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="3"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="4"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added=null
+/findById/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-added added=["0","1","2","3","4",null]
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-required-added added="capital_marker"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/city schema-required-added added="city"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/city_area schema-required-added added="city_area"
@@ -392,6 +351,7 @@
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/fias_id schema-required-added added="fias_id"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/fias_level schema-required-added added="fias_level"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/fias_level schema-type-changed added=[] removed=["null","string"]
+/findById/bank POST response 200 application/json suggestions/items/data/address/data/fias_level/anyOf schema-anyOf-changed added=[{"component":"AddressFiasLevel","index":1},{"index":0}] removed=[]
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/flat schema-required-added added="flat"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/flat_area schema-required-added added="flat_area"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/flat_price schema-required-added added="flat_price"
@@ -415,36 +375,15 @@
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/oktmo schema-required-added added="oktmo"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/postal_box schema-required-added added="postal_box"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/postal_code schema-required-added added="postal_code"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-enum-value-added added="0"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-enum-value-added added="1"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-enum-value-added added="3"
+/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-enum-added added=["0","1","3"]
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-required-added added="qc"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-type-changed added=[] removed=["null"]
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="0"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="1"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="10"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="2"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="3"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="4"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="5"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="6"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="7"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="8"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="9"
+/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-added added=["0","1","10","2","3","4","5","6","7","8","9"]
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-required-added added="qc_complete"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-type-changed added=[] removed=["null"]
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="0"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="1"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="2"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="3"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="4"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="5"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="6"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added=null
+/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-added added=["0","1","2","3","4","5","6",null]
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-required-added added="qc_geo"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-enum-value-added added="10"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-enum-value-added added="2"
-/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-enum-value-added added="3"
+/findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-enum-added added=["10","2","3"]
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-required-added added="qc_house"
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-type-changed added=[] removed=["null"]
 /findById/bank POST response 200 application/json suggestions/items/data/address/data/region schema-required-added added="region"
@@ -485,6 +424,7 @@
 /findById/bank POST response 200 application/json suggestions/items/data/address/value schema-type-changed added=[] removed=["null"]
 /findById/bank POST response 200 application/json suggestions/items/data/bic schema-required-added added="bic"
 /findById/bank POST response 200 application/json suggestions/items/data/bic schema-type-changed added=[] removed=["null"]
+/findById/bank POST response 200 application/json suggestions/items/data/cbr schema-circular-ref-changed
 /findById/bank POST response 200 application/json suggestions/items/data/cbr schema-required-added added="cbr"
 /findById/bank POST response 200 application/json suggestions/items/data/correspondent_account schema-required-added added="correspondent_account"
 /findById/bank POST response 200 application/json suggestions/items/data/inn schema-required-added added="inn"
@@ -510,6 +450,7 @@
 /findById/bank POST response 200 application/json suggestions/items/data/phones schema-type-changed added=[] removed=["array"]
 /findById/bank POST response 200 application/json suggestions/items/data/phones/items schema-deleted
 /findById/bank POST response 200 application/json suggestions/items/data/registration_number schema-required-added added="registration_number"
+/findById/bank POST response 200 application/json suggestions/items/data/rkc schema-circular-ref-changed
 /findById/bank POST response 200 application/json suggestions/items/data/rkc schema-required-added added="rkc"
 /findById/bank POST response 200 application/json suggestions/items/data/state/actuality_date schema-required-added added="actuality_date"
 /findById/bank POST response 200 application/json suggestions/items/data/state/code schema-required-added added="code"
@@ -645,21 +586,9 @@
 /findById/delivery POST response 429 <response> response-status-added
 /findById/delivery POST response 5XX <response> response-status-added
 /findById/fias POST request application/json count schema-max-changed from=null to=20
-/findById/fias POST request application/json from_bound/value schema-enum-value-added added="area"
-/findById/fias POST request application/json from_bound/value schema-enum-value-added added="city"
-/findById/fias POST request application/json from_bound/value schema-enum-value-added added="house"
-/findById/fias POST request application/json from_bound/value schema-enum-value-added added="planning_structure"
-/findById/fias POST request application/json from_bound/value schema-enum-value-added added="region"
-/findById/fias POST request application/json from_bound/value schema-enum-value-added added="settlement"
-/findById/fias POST request application/json from_bound/value schema-enum-value-added added="street"
+/findById/fias POST request application/json from_bound/value schema-enum-added added=["area","city","house","planning_structure","region","settlement","street"]
 /findById/fias POST request application/json query schema-maxLength-changed from=null to=300
-/findById/fias POST request application/json to_bound/value schema-enum-value-added added="area"
-/findById/fias POST request application/json to_bound/value schema-enum-value-added added="city"
-/findById/fias POST request application/json to_bound/value schema-enum-value-added added="house"
-/findById/fias POST request application/json to_bound/value schema-enum-value-added added="planning_structure"
-/findById/fias POST request application/json to_bound/value schema-enum-value-added added="region"
-/findById/fias POST request application/json to_bound/value schema-enum-value-added added="settlement"
-/findById/fias POST request application/json to_bound/value schema-enum-value-added added="street"
+/findById/fias POST request application/json to_bound/value schema-enum-added added=["area","city","house","planning_structure","region","settlement","street"]
 /findById/fias POST response 200 application/json suggestions schema-required-added added="suggestions"
 /findById/fias POST response 200 application/json suggestions schema-type-changed added=[] removed=["null"]
 /findById/fias POST response 200 application/json suggestions/items/data schema-required-added added="data"
@@ -673,12 +602,7 @@
 /findById/fias POST response 200 application/json suggestions/items/data/building schema-required-added added="building"
 /findById/fias POST response 200 application/json suggestions/items/data/building_type schema-required-added added="building_type"
 /findById/fias POST response 200 application/json suggestions/items/data/cadastral_number schema-required-added added="cadastral_number"
-/findById/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="0"
-/findById/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="1"
-/findById/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="2"
-/findById/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="3"
-/findById/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="4"
-/findById/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added=null
+/findById/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-added added=["0","1","2","3","4",null]
 /findById/fias POST response 200 application/json suggestions/items/data/capital_marker schema-required-added added="capital_marker"
 /findById/fias POST response 200 application/json suggestions/items/data/city schema-required-added added="city"
 /findById/fias POST response 200 application/json suggestions/items/data/city_district schema-required-added added="city_district"
@@ -695,14 +619,7 @@
 /findById/fias POST response 200 application/json suggestions/items/data/fias_actuality_state schema-required-added added="fias_actuality_state"
 /findById/fias POST response 200 application/json suggestions/items/data/fias_code schema-required-added added="fias_code"
 /findById/fias POST response 200 application/json suggestions/items/data/fias_id schema-required-added added="fias_id"
-/findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="1"
-/findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="3"
-/findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="4"
-/findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="5"
-/findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="6"
-/findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="65"
-/findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="7"
-/findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="8"
+/findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-added added=["1","3","4","5","6","65","7","8"]
 /findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-required-added added="fias_level"
 /findById/fias POST response 200 application/json suggestions/items/data/fias_level schema-type-changed added=[] removed=["null"]
 /findById/fias POST response 200 application/json suggestions/items/data/history_values schema-required-added added="history_values"
@@ -914,12 +831,14 @@
 /findById/okved2 POST response 5XX <response> response-status-added
 /findById/party POST request application/json branch_type schema-composition-types-changed added=["null","string"] removed=[]
 /findById/party POST request application/json branch_type schema-type-changed added=[] removed=["array","null"]
+/findById/party POST request application/json branch_type/anyOf schema-anyOf-changed added=[{"index":0},{"index":1},{"index":2}] removed=[]
 /findById/party POST request application/json branch_type/items schema-deleted
 /findById/party POST request application/json count schema-max-changed from=null to=20
 /findById/party POST request application/json query schema-maxLength-changed from=null to=300
 /findById/party POST response 200 application/json suggestions schema-required-added added="suggestions"
 /findById/party POST response 200 application/json suggestions schema-type-changed added=[] removed=["null"]
 /findById/party POST response 200 application/json suggestions/items/data schema-required-added added="data"
+/findById/party POST response 200 application/json suggestions/items/data/anyOf schema-anyOf-changed added=[{"component":"PartyIndividual","index":1},{"component":"PartyLegal","index":0}] removed=[{"component":"IndividualParty","index":1},{"component":"LegalParty","index":0}]
 /findById/party POST response 200 application/json suggestions/items/unrestricted_value schema-required-added added="unrestricted_value"
 /findById/party POST response 200 application/json suggestions/items/unrestricted_value schema-type-changed added=[] removed=["null"]
 /findById/party POST response 200 application/json suggestions/items/value schema-required-added added="value"
@@ -1044,10 +963,13 @@
 /findById/postal_unit POST response 429 <response> response-status-added
 /findById/postal_unit POST response 5XX <response> response-status-added
 /geolocate/address POST request application/json count schema-max-changed from=null to=20
+/geolocate/address POST request application/json division schema-default-changed from=null to="ADMINISTRATIVE"
+/geolocate/address POST request application/json language schema-default-changed from=null to="ru"
 /geolocate/address POST request application/json lat schema-required-added added="lat"
 /geolocate/address POST request application/json lat schema-type-changed added=[] removed=["null"]
 /geolocate/address POST request application/json lon schema-required-added added="lon"
 /geolocate/address POST request application/json lon schema-type-changed added=[] removed=["null"]
+/geolocate/address POST request application/json radius_meters schema-default-changed from=null to=100
 /geolocate/address POST request application/json radius_meters schema-max-changed from=null to=1000
 /geolocate/address POST response 200 application/json suggestions schema-required-added added="suggestions"
 /geolocate/address POST response 200 application/json suggestions schema-type-changed added=[] removed=["null"]
@@ -1059,21 +981,12 @@
 /geolocate/address POST response 200 application/json suggestions/items/data/area_type_full schema-required-added added="area_type_full"
 /geolocate/address POST response 200 application/json suggestions/items/data/area_with_type schema-required-added added="area_with_type"
 /geolocate/address POST response 200 application/json suggestions/items/data/beltway_distance schema-required-added added="beltway_distance"
-/geolocate/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="IN_KAD"
-/geolocate/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="IN_MKAD"
-/geolocate/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="OUT_KAD"
-/geolocate/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="OUT_MKAD"
-/geolocate/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added=null
+/geolocate/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-added added=["IN_KAD","IN_MKAD","OUT_KAD","OUT_MKAD",null]
 /geolocate/address POST response 200 application/json suggestions/items/data/beltway_hit schema-required-added added="beltway_hit"
 /geolocate/address POST response 200 application/json suggestions/items/data/block schema-required-added added="block"
 /geolocate/address POST response 200 application/json suggestions/items/data/block_type schema-required-added added="block_type"
 /geolocate/address POST response 200 application/json suggestions/items/data/block_type_full schema-required-added added="block_type_full"
-/geolocate/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="0"
-/geolocate/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="1"
-/geolocate/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="2"
-/geolocate/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="3"
-/geolocate/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="4"
-/geolocate/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added=null
+/geolocate/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-added added=["0","1","2","3","4",null]
 /geolocate/address POST response 200 application/json suggestions/items/data/capital_marker schema-required-added added="capital_marker"
 /geolocate/address POST response 200 application/json suggestions/items/data/city schema-required-added added="city"
 /geolocate/address POST response 200 application/json suggestions/items/data/city_area schema-required-added added="city_area"
@@ -1165,6 +1078,7 @@
 /geolocate/address POST response 200 application/json suggestions/items/data/fias_id schema-required-added added="fias_id"
 /geolocate/address POST response 200 application/json suggestions/items/data/fias_level schema-required-added added="fias_level"
 /geolocate/address POST response 200 application/json suggestions/items/data/fias_level schema-type-changed added=[] removed=["null","string"]
+/geolocate/address POST response 200 application/json suggestions/items/data/fias_level/anyOf schema-anyOf-changed added=[{"component":"AddressFiasLevel","index":1},{"index":0}] removed=[]
 /geolocate/address POST response 200 application/json suggestions/items/data/flat schema-required-added added="flat"
 /geolocate/address POST response 200 application/json suggestions/items/data/flat_area schema-required-added added="flat_area"
 /geolocate/address POST response 200 application/json suggestions/items/data/flat_price schema-required-added added="flat_price"
@@ -1190,14 +1104,7 @@
 /geolocate/address POST response 200 application/json suggestions/items/data/postal_code schema-required-added added="postal_code"
 /geolocate/address POST response 200 application/json suggestions/items/data/qc schema-required-added added="qc"
 /geolocate/address POST response 200 application/json suggestions/items/data/qc_complete schema-required-added added="qc_complete"
-/geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="0"
-/geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="1"
-/geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="2"
-/geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="3"
-/geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="4"
-/geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="5"
-/geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="6"
-/geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added=null
+/geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-added added=["0","1","2","3","4","5","6",null]
 /geolocate/address POST response 200 application/json suggestions/items/data/qc_geo schema-required-added added="qc_geo"
 /geolocate/address POST response 200 application/json suggestions/items/data/qc_house schema-required-added added="qc_house"
 /geolocate/address POST response 200 application/json suggestions/items/data/region schema-required-added added="region"
@@ -1246,6 +1153,7 @@
 /geolocate/postal_unit POST request application/json lat schema-type-changed added=[] removed=["null"]
 /geolocate/postal_unit POST request application/json lon schema-required-added added="lon"
 /geolocate/postal_unit POST request application/json lon schema-type-changed added=[] removed=["null"]
+/geolocate/postal_unit POST request application/json radius_meters schema-default-changed from=null to=100
 /geolocate/postal_unit POST request application/json radius_meters schema-max-changed from=null to=1000
 /geolocate/postal_unit POST response 200 application/json suggestions schema-required-added added="suggestions"
 /geolocate/postal_unit POST response 200 application/json suggestions schema-type-changed added=[] removed=["null"]
@@ -1278,6 +1186,8 @@
 /geolocate/postal_unit POST response 413 <response> response-status-added
 /geolocate/postal_unit POST response 429 <response> response-status-added
 /geolocate/postal_unit POST response 5XX <response> response-status-added
+/iplocate/address POST request application/json division schema-default-changed from=null to="ADMINISTRATIVE"
+/iplocate/address POST request application/json language schema-default-changed from=null to="ru"
 /iplocate/address POST response 200 application/json location schema-required-added added="location"
 /iplocate/address POST response 200 application/json location schema-type-changed added=["null"] removed=[]
 /iplocate/address POST response 200 application/json location/data schema-required-added added="data"
@@ -1288,21 +1198,12 @@
 /iplocate/address POST response 200 application/json location/data/area_type_full schema-required-added added="area_type_full"
 /iplocate/address POST response 200 application/json location/data/area_with_type schema-required-added added="area_with_type"
 /iplocate/address POST response 200 application/json location/data/beltway_distance schema-required-added added="beltway_distance"
-/iplocate/address POST response 200 application/json location/data/beltway_hit schema-enum-value-added added="IN_KAD"
-/iplocate/address POST response 200 application/json location/data/beltway_hit schema-enum-value-added added="IN_MKAD"
-/iplocate/address POST response 200 application/json location/data/beltway_hit schema-enum-value-added added="OUT_KAD"
-/iplocate/address POST response 200 application/json location/data/beltway_hit schema-enum-value-added added="OUT_MKAD"
-/iplocate/address POST response 200 application/json location/data/beltway_hit schema-enum-value-added added=null
+/iplocate/address POST response 200 application/json location/data/beltway_hit schema-enum-added added=["IN_KAD","IN_MKAD","OUT_KAD","OUT_MKAD",null]
 /iplocate/address POST response 200 application/json location/data/beltway_hit schema-required-added added="beltway_hit"
 /iplocate/address POST response 200 application/json location/data/block schema-required-added added="block"
 /iplocate/address POST response 200 application/json location/data/block_type schema-required-added added="block_type"
 /iplocate/address POST response 200 application/json location/data/block_type_full schema-required-added added="block_type_full"
-/iplocate/address POST response 200 application/json location/data/capital_marker schema-enum-value-added added="0"
-/iplocate/address POST response 200 application/json location/data/capital_marker schema-enum-value-added added="1"
-/iplocate/address POST response 200 application/json location/data/capital_marker schema-enum-value-added added="2"
-/iplocate/address POST response 200 application/json location/data/capital_marker schema-enum-value-added added="3"
-/iplocate/address POST response 200 application/json location/data/capital_marker schema-enum-value-added added="4"
-/iplocate/address POST response 200 application/json location/data/capital_marker schema-enum-value-added added=null
+/iplocate/address POST response 200 application/json location/data/capital_marker schema-enum-added added=["0","1","2","3","4",null]
 /iplocate/address POST response 200 application/json location/data/capital_marker schema-required-added added="capital_marker"
 /iplocate/address POST response 200 application/json location/data/city schema-required-added added="city"
 /iplocate/address POST response 200 application/json location/data/city_area schema-required-added added="city_area"
@@ -1394,6 +1295,7 @@
 /iplocate/address POST response 200 application/json location/data/fias_id schema-required-added added="fias_id"
 /iplocate/address POST response 200 application/json location/data/fias_level schema-required-added added="fias_level"
 /iplocate/address POST response 200 application/json location/data/fias_level schema-type-changed added=[] removed=["null","string"]
+/iplocate/address POST response 200 application/json location/data/fias_level/anyOf schema-anyOf-changed added=[{"component":"AddressFiasLevel","index":1},{"index":0}] removed=[]
 /iplocate/address POST response 200 application/json location/data/flat schema-required-added added="flat"
 /iplocate/address POST response 200 application/json location/data/flat_area schema-required-added added="flat_area"
 /iplocate/address POST response 200 application/json location/data/flat_price schema-required-added added="flat_price"
@@ -1419,14 +1321,7 @@
 /iplocate/address POST response 200 application/json location/data/postal_code schema-required-added added="postal_code"
 /iplocate/address POST response 200 application/json location/data/qc schema-required-added added="qc"
 /iplocate/address POST response 200 application/json location/data/qc_complete schema-required-added added="qc_complete"
-/iplocate/address POST response 200 application/json location/data/qc_geo schema-enum-value-added added="0"
-/iplocate/address POST response 200 application/json location/data/qc_geo schema-enum-value-added added="1"
-/iplocate/address POST response 200 application/json location/data/qc_geo schema-enum-value-added added="2"
-/iplocate/address POST response 200 application/json location/data/qc_geo schema-enum-value-added added="3"
-/iplocate/address POST response 200 application/json location/data/qc_geo schema-enum-value-added added="4"
-/iplocate/address POST response 200 application/json location/data/qc_geo schema-enum-value-added added="5"
-/iplocate/address POST response 200 application/json location/data/qc_geo schema-enum-value-added added="6"
-/iplocate/address POST response 200 application/json location/data/qc_geo schema-enum-value-added added=null
+/iplocate/address POST response 200 application/json location/data/qc_geo schema-enum-added added=["0","1","2","3","4","5","6",null]
 /iplocate/address POST response 200 application/json location/data/qc_geo schema-required-added added="qc_geo"
 /iplocate/address POST response 200 application/json location/data/qc_house schema-required-added added="qc_house"
 /iplocate/address POST response 200 application/json location/data/region schema-required-added added="region"
@@ -1467,33 +1362,20 @@
 /iplocate/address POST response 5XX <response> response-status-added
 /suggest/address POST request application/json count schema-max-changed from=null to=20
 /suggest/address POST request application/json count schema-min-changed from=null to=1
-/suggest/address POST request application/json from_bound/value schema-enum-value-added added="area"
-/suggest/address POST request application/json from_bound/value schema-enum-value-added added="city"
-/suggest/address POST request application/json from_bound/value schema-enum-value-added added="country"
-/suggest/address POST request application/json from_bound/value schema-enum-value-added added="flat"
-/suggest/address POST request application/json from_bound/value schema-enum-value-added added="house"
-/suggest/address POST request application/json from_bound/value schema-enum-value-added added="planning_structure"
-/suggest/address POST request application/json from_bound/value schema-enum-value-added added="region"
-/suggest/address POST request application/json from_bound/value schema-enum-value-added added="settlement"
-/suggest/address POST request application/json from_bound/value schema-enum-value-added added="street"
+/suggest/address POST request application/json division schema-default-changed from=null to="ADMINISTRATIVE"
+/suggest/address POST request application/json from_bound/value schema-enum-added added=["area","city","country","flat","house","planning_structure","region","settlement","street"]
+/suggest/address POST request application/json language schema-default-changed from=null to="RU"
 /suggest/address POST request application/json locations_geo/items/lat schema-required-added added="lat"
 /suggest/address POST request application/json locations_geo/items/lat schema-type-changed added=["string"] removed=["null"]
 /suggest/address POST request application/json locations_geo/items/lon schema-required-added added="lon"
 /suggest/address POST request application/json locations_geo/items/lon schema-type-changed added=["string"] removed=["null"]
+/suggest/address POST request application/json locations_geo/items/radius_meters schema-default-changed from=null to=100
 /suggest/address POST request application/json locations_geo/items/radius_meters schema-max-changed from=null to=100000
 /suggest/address POST request application/json locations/items/planning_structure schema-property-added added="planning_structure"
 /suggest/address POST request application/json locations/items/planning_structure_fias_id schema-property-added added="planning_structure_fias_id"
 /suggest/address POST request application/json locations/items/planning_structure_type_full schema-property-added added="planning_structure_type_full"
 /suggest/address POST request application/json query schema-maxLength-changed from=null to=300
-/suggest/address POST request application/json to_bound/value schema-enum-value-added added="area"
-/suggest/address POST request application/json to_bound/value schema-enum-value-added added="city"
-/suggest/address POST request application/json to_bound/value schema-enum-value-added added="country"
-/suggest/address POST request application/json to_bound/value schema-enum-value-added added="flat"
-/suggest/address POST request application/json to_bound/value schema-enum-value-added added="house"
-/suggest/address POST request application/json to_bound/value schema-enum-value-added added="planning_structure"
-/suggest/address POST request application/json to_bound/value schema-enum-value-added added="region"
-/suggest/address POST request application/json to_bound/value schema-enum-value-added added="settlement"
-/suggest/address POST request application/json to_bound/value schema-enum-value-added added="street"
+/suggest/address POST request application/json to_bound/value schema-enum-added added=["area","city","country","flat","house","planning_structure","region","settlement","street"]
 /suggest/address POST response 200 application/json suggestions schema-required-added added="suggestions"
 /suggest/address POST response 200 application/json suggestions schema-type-changed added=[] removed=["null"]
 /suggest/address POST response 200 application/json suggestions/items/data schema-required-added added="data"
@@ -1504,21 +1386,12 @@
 /suggest/address POST response 200 application/json suggestions/items/data/area_type_full schema-required-added added="area_type_full"
 /suggest/address POST response 200 application/json suggestions/items/data/area_with_type schema-required-added added="area_with_type"
 /suggest/address POST response 200 application/json suggestions/items/data/beltway_distance schema-required-added added="beltway_distance"
-/suggest/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="IN_KAD"
-/suggest/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="IN_MKAD"
-/suggest/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="OUT_KAD"
-/suggest/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added="OUT_MKAD"
-/suggest/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-value-added added=null
+/suggest/address POST response 200 application/json suggestions/items/data/beltway_hit schema-enum-added added=["IN_KAD","IN_MKAD","OUT_KAD","OUT_MKAD",null]
 /suggest/address POST response 200 application/json suggestions/items/data/beltway_hit schema-required-added added="beltway_hit"
 /suggest/address POST response 200 application/json suggestions/items/data/block schema-required-added added="block"
 /suggest/address POST response 200 application/json suggestions/items/data/block_type schema-required-added added="block_type"
 /suggest/address POST response 200 application/json suggestions/items/data/block_type_full schema-required-added added="block_type_full"
-/suggest/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="0"
-/suggest/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="1"
-/suggest/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="2"
-/suggest/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="3"
-/suggest/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="4"
-/suggest/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added=null
+/suggest/address POST response 200 application/json suggestions/items/data/capital_marker schema-enum-added added=["0","1","2","3","4",null]
 /suggest/address POST response 200 application/json suggestions/items/data/capital_marker schema-required-added added="capital_marker"
 /suggest/address POST response 200 application/json suggestions/items/data/city schema-required-added added="city"
 /suggest/address POST response 200 application/json suggestions/items/data/city_area schema-required-added added="city_area"
@@ -1610,6 +1483,7 @@
 /suggest/address POST response 200 application/json suggestions/items/data/fias_id schema-required-added added="fias_id"
 /suggest/address POST response 200 application/json suggestions/items/data/fias_level schema-required-added added="fias_level"
 /suggest/address POST response 200 application/json suggestions/items/data/fias_level schema-type-changed added=[] removed=["null","string"]
+/suggest/address POST response 200 application/json suggestions/items/data/fias_level/anyOf schema-anyOf-changed added=[{"component":"AddressFiasLevel","index":1},{"index":0}] removed=[]
 /suggest/address POST response 200 application/json suggestions/items/data/flat schema-required-added added="flat"
 /suggest/address POST response 200 application/json suggestions/items/data/flat_area schema-required-added added="flat_area"
 /suggest/address POST response 200 application/json suggestions/items/data/flat_price schema-required-added added="flat_price"
@@ -1635,14 +1509,7 @@
 /suggest/address POST response 200 application/json suggestions/items/data/postal_code schema-required-added added="postal_code"
 /suggest/address POST response 200 application/json suggestions/items/data/qc schema-required-added added="qc"
 /suggest/address POST response 200 application/json suggestions/items/data/qc_complete schema-required-added added="qc_complete"
-/suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="0"
-/suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="1"
-/suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="2"
-/suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="3"
-/suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="4"
-/suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="5"
-/suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added="6"
-/suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-value-added added=null
+/suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-enum-added added=["0","1","2","3","4","5","6",null]
 /suggest/address POST response 200 application/json suggestions/items/data/qc_geo schema-required-added added="qc_geo"
 /suggest/address POST response 200 application/json suggestions/items/data/qc_house schema-required-added added="qc_house"
 /suggest/address POST response 200 application/json suggestions/items/data/region schema-required-added added="region"
@@ -1699,21 +1566,12 @@
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/area_type_full schema-required-added added="area_type_full"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/area_with_type schema-required-added added="area_with_type"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/beltway_distance schema-required-added added="beltway_distance"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added="IN_KAD"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added="IN_MKAD"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added="OUT_KAD"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added="OUT_MKAD"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-value-added added=null
+/suggest/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-enum-added added=["IN_KAD","IN_MKAD","OUT_KAD","OUT_MKAD",null]
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/beltway_hit schema-required-added added="beltway_hit"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/block schema-required-added added="block"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/block_type schema-required-added added="block_type"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/block_type_full schema-required-added added="block_type_full"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="0"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="1"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="2"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="3"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added="4"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-value-added added=null
+/suggest/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-enum-added added=["0","1","2","3","4",null]
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/capital_marker schema-required-added added="capital_marker"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/city schema-required-added added="city"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/city_area schema-required-added added="city_area"
@@ -1811,6 +1669,7 @@
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/fias_id schema-required-added added="fias_id"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/fias_level schema-required-added added="fias_level"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/fias_level schema-type-changed added=[] removed=["null","string"]
+/suggest/bank POST response 200 application/json suggestions/items/data/address/data/fias_level/anyOf schema-anyOf-changed added=[{"component":"AddressFiasLevel","index":1},{"index":0}] removed=[]
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/flat schema-required-added added="flat"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/flat_area schema-required-added added="flat_area"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/flat_price schema-required-added added="flat_price"
@@ -1834,36 +1693,15 @@
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/oktmo schema-required-added added="oktmo"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/postal_box schema-required-added added="postal_box"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/postal_code schema-required-added added="postal_code"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-enum-value-added added="0"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-enum-value-added added="1"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-enum-value-added added="3"
+/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-enum-added added=["0","1","3"]
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-required-added added="qc"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc schema-type-changed added=[] removed=["null"]
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="0"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="1"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="10"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="2"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="3"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="4"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="5"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="6"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="7"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="8"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-value-added added="9"
+/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-enum-added added=["0","1","10","2","3","4","5","6","7","8","9"]
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-required-added added="qc_complete"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_complete schema-type-changed added=[] removed=["null"]
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="0"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="1"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="2"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="3"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="4"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="5"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added="6"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-value-added added=null
+/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-enum-added added=["0","1","2","3","4","5","6",null]
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_geo schema-required-added added="qc_geo"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-enum-value-added added="10"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-enum-value-added added="2"
-/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-enum-value-added added="3"
+/suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-enum-added added=["10","2","3"]
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-required-added added="qc_house"
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/qc_house schema-type-changed added=[] removed=["null"]
 /suggest/bank POST response 200 application/json suggestions/items/data/address/data/region schema-required-added added="region"
@@ -1904,6 +1742,7 @@
 /suggest/bank POST response 200 application/json suggestions/items/data/address/value schema-type-changed added=[] removed=["null"]
 /suggest/bank POST response 200 application/json suggestions/items/data/bic schema-required-added added="bic"
 /suggest/bank POST response 200 application/json suggestions/items/data/bic schema-type-changed added=[] removed=["null"]
+/suggest/bank POST response 200 application/json suggestions/items/data/cbr schema-circular-ref-changed
 /suggest/bank POST response 200 application/json suggestions/items/data/cbr schema-required-added added="cbr"
 /suggest/bank POST response 200 application/json suggestions/items/data/correspondent_account schema-required-added added="correspondent_account"
 /suggest/bank POST response 200 application/json suggestions/items/data/inn schema-required-added added="inn"
@@ -1929,6 +1768,7 @@
 /suggest/bank POST response 200 application/json suggestions/items/data/phones schema-type-changed added=[] removed=["array"]
 /suggest/bank POST response 200 application/json suggestions/items/data/phones/items schema-deleted
 /suggest/bank POST response 200 application/json suggestions/items/data/registration_number schema-required-added added="registration_number"
+/suggest/bank POST response 200 application/json suggestions/items/data/rkc schema-circular-ref-changed
 /suggest/bank POST response 200 application/json suggestions/items/data/rkc schema-required-added added="rkc"
 /suggest/bank POST response 200 application/json suggestions/items/data/state/actuality_date schema-required-added added="actuality_date"
 /suggest/bank POST response 200 application/json suggestions/items/data/state/code schema-required-added added="code"
@@ -2077,22 +1917,10 @@
 /suggest/email POST response 5XX <response> response-status-added
 /suggest/fias POST request application/json count schema-max-changed from=null to=20
 /suggest/fias POST request application/json count schema-min-changed from=null to=1
-/suggest/fias POST request application/json from_bound/value schema-enum-value-added added="area"
-/suggest/fias POST request application/json from_bound/value schema-enum-value-added added="city"
-/suggest/fias POST request application/json from_bound/value schema-enum-value-added added="house"
-/suggest/fias POST request application/json from_bound/value schema-enum-value-added added="planning_structure"
-/suggest/fias POST request application/json from_bound/value schema-enum-value-added added="region"
-/suggest/fias POST request application/json from_bound/value schema-enum-value-added added="settlement"
-/suggest/fias POST request application/json from_bound/value schema-enum-value-added added="street"
+/suggest/fias POST request application/json from_bound/value schema-enum-added added=["area","city","house","planning_structure","region","settlement","street"]
 /suggest/fias POST request application/json locations/items/region_iso_code schema-property-deleted removed="region_iso_code"
 /suggest/fias POST request application/json query schema-maxLength-changed from=null to=300
-/suggest/fias POST request application/json to_bound/value schema-enum-value-added added="area"
-/suggest/fias POST request application/json to_bound/value schema-enum-value-added added="city"
-/suggest/fias POST request application/json to_bound/value schema-enum-value-added added="house"
-/suggest/fias POST request application/json to_bound/value schema-enum-value-added added="planning_structure"
-/suggest/fias POST request application/json to_bound/value schema-enum-value-added added="region"
-/suggest/fias POST request application/json to_bound/value schema-enum-value-added added="settlement"
-/suggest/fias POST request application/json to_bound/value schema-enum-value-added added="street"
+/suggest/fias POST request application/json to_bound/value schema-enum-added added=["area","city","house","planning_structure","region","settlement","street"]
 /suggest/fias POST response 200 application/json suggestions schema-required-added added="suggestions"
 /suggest/fias POST response 200 application/json suggestions schema-type-changed added=[] removed=["null"]
 /suggest/fias POST response 200 application/json suggestions/items/data schema-required-added added="data"
@@ -2106,12 +1934,7 @@
 /suggest/fias POST response 200 application/json suggestions/items/data/building schema-required-added added="building"
 /suggest/fias POST response 200 application/json suggestions/items/data/building_type schema-required-added added="building_type"
 /suggest/fias POST response 200 application/json suggestions/items/data/cadastral_number schema-required-added added="cadastral_number"
-/suggest/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="0"
-/suggest/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="1"
-/suggest/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="2"
-/suggest/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="3"
-/suggest/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added="4"
-/suggest/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-value-added added=null
+/suggest/fias POST response 200 application/json suggestions/items/data/capital_marker schema-enum-added added=["0","1","2","3","4",null]
 /suggest/fias POST response 200 application/json suggestions/items/data/capital_marker schema-required-added added="capital_marker"
 /suggest/fias POST response 200 application/json suggestions/items/data/city schema-required-added added="city"
 /suggest/fias POST response 200 application/json suggestions/items/data/city_district schema-required-added added="city_district"
@@ -2128,14 +1951,7 @@
 /suggest/fias POST response 200 application/json suggestions/items/data/fias_actuality_state schema-required-added added="fias_actuality_state"
 /suggest/fias POST response 200 application/json suggestions/items/data/fias_code schema-required-added added="fias_code"
 /suggest/fias POST response 200 application/json suggestions/items/data/fias_id schema-required-added added="fias_id"
-/suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="1"
-/suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="3"
-/suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="4"
-/suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="5"
-/suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="6"
-/suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="65"
-/suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="7"
-/suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-value-added added="8"
+/suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-enum-added added=["1","3","4","5","6","65","7","8"]
 /suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-required-added added="fias_level"
 /suggest/fias POST response 200 application/json suggestions/items/data/fias_level schema-type-changed added=[] removed=["null"]
 /suggest/fias POST response 200 application/json suggestions/items/data/history_values schema-required-added added="history_values"
@@ -2198,8 +2014,7 @@
 /suggest/fio POST response 200 application/json suggestions/items/data/gender schema-type-changed added=[] removed=["null"]
 /suggest/fio POST response 200 application/json suggestions/items/data/name schema-required-added added="name"
 /suggest/fio POST response 200 application/json suggestions/items/data/patronymic schema-required-added added="patronymic"
-/suggest/fio POST response 200 application/json suggestions/items/data/qc schema-enum-value-added added="0"
-/suggest/fio POST response 200 application/json suggestions/items/data/qc schema-enum-value-added added="1"
+/suggest/fio POST response 200 application/json suggestions/items/data/qc schema-enum-added added=["0","1"]
 /suggest/fio POST response 200 application/json suggestions/items/data/qc schema-required-added added="qc"
 /suggest/fio POST response 200 application/json suggestions/items/data/qc schema-type-changed added=[] removed=["null"]
 /suggest/fio POST response 200 application/json suggestions/items/data/source schema-required-added added="source"
@@ -2455,6 +2270,7 @@
 /suggest/okved2 POST response 5XX <response> response-status-added
 /suggest/party POST request application/json branch_type schema-composition-types-changed added=["null","string"] removed=[]
 /suggest/party POST request application/json branch_type schema-type-changed added=[] removed=["array","null"]
+/suggest/party POST request application/json branch_type/anyOf schema-anyOf-changed added=[{"index":0},{"index":1},{"index":2}] removed=[]
 /suggest/party POST request application/json branch_type/items schema-deleted
 /suggest/party POST request application/json count schema-max-changed from=null to=20
 /suggest/party POST request application/json count schema-min-changed from=null to=1
@@ -2462,6 +2278,7 @@
 /suggest/party POST response 200 application/json suggestions schema-required-added added="suggestions"
 /suggest/party POST response 200 application/json suggestions schema-type-changed added=[] removed=["null"]
 /suggest/party POST response 200 application/json suggestions/items/data schema-required-added added="data"
+/suggest/party POST response 200 application/json suggestions/items/data/anyOf schema-anyOf-changed added=[{"component":"PartyIndividual","index":1},{"component":"PartyLegal","index":0}] removed=[{"component":"IndividualParty","index":1},{"component":"LegalParty","index":0}]
 /suggest/party POST response 200 application/json suggestions/items/unrestricted_value schema-required-added added="unrestricted_value"
 /suggest/party POST response 200 application/json suggestions/items/unrestricted_value schema-type-changed added=[] removed=["null"]
 /suggest/party POST response 200 application/json suggestions/items/value schema-required-added added="value"

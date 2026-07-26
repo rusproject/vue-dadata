@@ -22,6 +22,7 @@ import {
 } from './oasdiff.js';
 import { printStageBReport } from './report.js';
 import { buildComparableRevisionSlice, extractComparableOperations } from './revision-slice.js';
+import { applySchemaComponentAliasRules } from './schema-component-aliases.js';
 import { handleStageBSnapshot } from './snapshot.js';
 import type { StageBFamilyConfig, StageBOptions } from './types.js';
 
@@ -65,6 +66,10 @@ export function runStageBComparison(
         projectedSpec,
         comparisonCuration.anyOfFolding.filter((rule) => rule.target === 'official'),
       ),
+      ...applySchemaComponentAliasRules(
+        projectedSpec,
+        comparisonCuration.schemaComponentAliases.filter((rule) => rule.target === 'official'),
+      ),
     );
     writeJson(artifacts.projectionNormalizedUnprunedPath, projectedSpec);
     const projectionComponentPruning = pruneUnreferencedComponents(projectedSpec);
@@ -77,6 +82,7 @@ export function runStageBComparison(
       comparableOperations,
       comparisonCuration.anyOfSelections.filter((rule) => rule.target === 'ours'),
       comparisonCuration.anyOfFolding.filter((rule) => rule.target === 'ours'),
+      comparisonCuration.schemaComponentAliases.filter((rule) => rule.target === 'ours'),
       ourSpec,
     );
     writeJson(artifacts.revisionNormalizedUnprunedPath, revisionSlice.document);

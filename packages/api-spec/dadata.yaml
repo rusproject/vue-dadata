@@ -3547,6 +3547,9 @@ components:
             - @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017
             - @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=1023737934#id-Ограничениепоназваниюадресногообъекта-Адресбезрегионаигорода
             - @see https://confluence.hflabs.ru/display/SGTDOC/address.value#address.value-Параметрrestrict_value
+
+            @default false
+          default: false
         locations_geo:
           anyOf:
             - type: array
@@ -5787,6 +5790,8 @@ components:
             (поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.
 
             @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=967835974#:~:text=Адрес%20без%20региона%20и%20города
+            @default false
+          default: false
       required:
         - query
       description: |-
@@ -10610,7 +10615,11 @@ components:
                 - FEMALE
                 - UNKNOWN
             - type: 'null'
-          description: Пол (`UNKNOWN` / `MALE` / `FEMALE`)
+          description: |-
+            Пол (`UNKNOWN` / `MALE` / `FEMALE`)
+
+            @default 'UNKNOWN'
+          default: UNKNOWN
         parts:
           anyOf:
             - type: array
@@ -13277,6 +13286,8 @@ components:
             - '7'
             - '8'
         - type: string
+          const: '75'
+        - type: string
           const: '9'
         - type: string
           const: '90'
@@ -13413,6 +13424,7 @@ components:
             - 8 — дом
             - 9 — квартира (подсказки: v21.4+)
             - 65 — планировочная структура
+            - 75 — земельный участок
             - 90 — доп. территория
             - 91 — улица в доп. территории
             - -1 — иностранный или пустой.
@@ -14726,8 +14738,10 @@ components:
               - PHONE
               - PASSPORT
               - NAME
+              - BIRTHDATE
               - EMAIL
               - VEHICLE
+              - SIMPLE_PARTY_NAME
           description: |-
             Поле `structure` определяет тип данных в поле `data`.
 
@@ -14794,9 +14808,11 @@ components:
         - `PHONE` - Телефон
         - `PASSPORT` - Номер и серия паспорта
         - `NAME` - ФИО
+        - `BIRTHDATE` - Дата рождения
         - `EMAIL` - Адрес электронной почты
         - `VEHICLE` - Марка и модель автомобиля
         - `AS_IS` - Скопировать поле в ответ «как есть»
+        - `SIMPLE_PARTY_NAME` - Наименование организации (недокументированный тип)
 
         Количество полей в `data` не должно быть больше указанного в `structure`.
 
@@ -14812,6 +14828,29 @@ components:
           - 1 автомобиль
 
         @see https://dadata.ru/api/clean/record/
+    AsIsClean:
+      type: object
+      properties:
+        source:
+          type: string
+          description: Исходное значение.
+      required:
+        - source
+      description: Поле составной записи, которое не нужно стандартизировать.
+    SimplePartyNameClean:
+      type: object
+      properties:
+        source: {}
+        result: {}
+        stem: {}
+        opf: {}
+        qc: {}
+      additionalProperties: {}
+      description: |-
+        Результат обработки недокументированного типа `SIMPLE_PARTY_NAME`.
+
+        Формат ответа не является публичным контрактом «Дадаты», поэтому значения
+        известных полей и дополнительные поля намеренно остаются неизвестными.
     CleanCombinedResponse:
       type: object
       properties:
@@ -14825,8 +14864,10 @@ components:
               - PHONE
               - PASSPORT
               - NAME
+              - BIRTHDATE
               - EMAIL
               - VEHICLE
+              - SIMPLE_PARTY_NAME
           description: |-
             Порядок и тип данных в поле `data`.
 
@@ -14838,12 +14879,15 @@ components:
             type: array
             items:
               anyOf:
+                - $ref: '#/components/schemas/AsIsClean'
                 - $ref: '#/components/schemas/AddressClean'
                 - $ref: '#/components/schemas/PhoneClean'
                 - $ref: '#/components/schemas/PassportClean'
                 - $ref: '#/components/schemas/FioClean'
+                - $ref: '#/components/schemas/DateClean'
                 - $ref: '#/components/schemas/EmailClean'
                 - $ref: '#/components/schemas/VehicleClean'
+                - $ref: '#/components/schemas/SimplePartyNameClean'
           minItems: 1
           maxItems: 1
           description: |-

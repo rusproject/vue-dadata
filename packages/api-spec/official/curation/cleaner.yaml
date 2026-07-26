@@ -52,6 +52,32 @@ operations:
         method: post
 
 comparison:
+  schemaComponentAliases:
+    - target: official
+      sourceName: Address
+      canonicalName: AddressClean
+    - target: official
+      sourceName: AsIs
+      canonicalName: AsIsClean
+    - target: official
+      sourceName: Birthdate
+      canonicalName: DateClean
+    - target: official
+      sourceName: Email
+      canonicalName: EmailClean
+    - target: official
+      sourceName: Name
+      canonicalName: FioClean
+    - target: official
+      sourceName: Passport
+      canonicalName: PassportClean
+    - target: official
+      sourceName: Phone
+      canonicalName: PhoneClean
+    - target: official
+      sourceName: Vehicle
+      canonicalName: VehicleClean
+
   anyOfSelections:
     - target: official
       operation:

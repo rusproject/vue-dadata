@@ -24,6 +24,7 @@ Temporary parts:
 - `oasdiff breaking` output is useful for reports, but not trusted as the semantic source of truth.
 - `stage-b-diff-units.json` is the first own finding-shaped artifact built from `oasdiff diff -f json`; accepted-difference curation is intentionally not wired yet.
 - Component pruning is comparison-only, follows local `$ref`s from the compared paths before removing unused standard component entries, and validates remaining local `$ref`s after pruning.
+- Explicit `schemaComponentAliases` rules rename known-equivalent schema components and every exact local `$ref` on one comparison side. Rules fail closed when sources are missing or unreferenced, targets collide, or aliases form chains/cycles.
 - Explicit `anyOfFolding` rules are fail-closed comparison-only projections. All selectors use the canonical `properties/<JSON-Pointer-escaped-name>` / `items` grammar. Rules validate ordered branch lineage, exact branch-local property/required differences, exact null branches, and every recursively merged schema path. Branch-local annotations such as `description` are intentionally discarded by the fold; target-level annotations are preserved.
 - Explicit `anyOfSelections` rules select one local-ref branch from an operation-local `anyOf` before comparison. They require exact local-ref branches, the complete expected ref set, and the selected ref exactly once.
 - The broad legacy comparer should not receive deep refactors unless it is needed to preserve coverage while the staged pipeline is incomplete.
@@ -45,10 +46,12 @@ pnpm --filter @dadata-sdk/api-spec compare:official:suggestions-stage-a
 pnpm --filter @dadata-sdk/api-spec compare:official:suggestions-stage-b -- --keep-temp --max-groups 20 --max-samples 5
 
 # Update committed accepted diff snapshots.
+pnpm --filter @dadata-sdk/api-spec compare:official:cleaner-stage-b:update-snapshot
 pnpm --filter @dadata-sdk/api-spec compare:official:profile-stage-b:update-snapshot
 pnpm --filter @dadata-sdk/api-spec compare:official:suggestions-stage-b:update-snapshot
 
 # Check generated diffs against committed accepted snapshots.
+pnpm --filter @dadata-sdk/api-spec compare:official:cleaner-stage-b:check-snapshot
 pnpm --filter @dadata-sdk/api-spec compare:official:profile-stage-b:check-snapshot
 pnpm --filter @dadata-sdk/api-spec compare:official:suggestions-stage-b:check-snapshot
 ```

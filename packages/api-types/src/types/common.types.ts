@@ -53,5 +53,7 @@ export type CleanFieldType =
   | 'PHONE'
   | 'PASSPORT'
   | 'NAME'
+  | 'BIRTHDATE'
   | 'EMAIL'
-  | 'VEHICLE';
+  | 'VEHICLE'
+  | 'SIMPLE_PARTY_NAME';

@@ -9,7 +9,11 @@ export type FioParts = (typeof FIO_PARTS)[number];
  * @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=204669111
  */
 export interface SuggestFioPayload extends BaseSuggestPayload {
-  /** Пол (`UNKNOWN` / `MALE` / `FEMALE`) */
+  /**
+   * Пол (`UNKNOWN` / `MALE` / `FEMALE`)
+   *
+   * @default 'UNKNOWN'
+   */
   gender?: FioGenders | null;
 
   /**

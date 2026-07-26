@@ -79,6 +79,7 @@ export type AddressFiasLevel =
 export type CleanAddressFiasLevel =
   | '0' // <prettier wrap>
   | FiasAddressFiasLevel
+  | '75'
   | '9'
   | '90'
   | '91'
@@ -991,6 +992,7 @@ export interface AddressClean extends PickAndOverride<
      * - 8 — дом
      * - 9 — квартира (подсказки: v21.4+)
      * - 65 — планировочная структура
+     * - 75 — земельный участок
      * - 90 — доп. территория
      * - 91 — улица в доп. территории
      * - -1 — иностранный или пустой.

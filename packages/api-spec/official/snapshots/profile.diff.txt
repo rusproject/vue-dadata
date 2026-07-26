@@ -5,6 +5,7 @@
 /profile/balance GET response 4XX <response> response-status-added
 /profile/balance GET response 500 <response> response-status-deleted
 /profile/balance GET response 5XX <response> response-status-added
+/stat/daily GET response 200 application/json <schema> schema-additionalPropertiesAllowed-changed from=true to=null
 /stat/daily GET response 200 application/json date schema-property-added added="date" required=true
 /stat/daily GET response 200 application/json remaining schema-property-added added="remaining" required=true
 /stat/daily GET response 200 application/json services schema-property-added added="services" required=true
@@ -15,6 +16,7 @@
 /stat/daily GET response 4XX <response> response-status-added
 /stat/daily GET response 500 <response> response-status-deleted
 /stat/daily GET response 5XX <response> response-status-added
+/version GET response 200 application/json <schema> schema-additionalPropertiesAllowed-changed from=true to=null
 /version GET response 200 application/json dadata schema-property-added added="dadata" required=true
 /version GET response 200 application/json factor schema-property-added added="factor" required=true
 /version GET response 200 application/json suggestions schema-property-added added="suggestions" required=true
