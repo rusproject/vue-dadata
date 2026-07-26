@@ -32,22 +32,21 @@ export function runCommand(
   };
 }
 
-/** Prints a failed command with captured process output. */
-export function printFailedCommand(message: string, result: CommandResult): void {
-  console.error(message);
-  console.error(`command: ${result.command} ${result.args.join(' ')}`);
+/** Formats a failed command with captured process output. */
+export function failedCommandMessage(message: string, result: CommandResult): string {
+  const lines = [message, `command: ${result.command} ${result.args.join(' ')}`];
 
   if (result.error) {
-    console.error(`error: ${result.error.message}`);
+    lines.push(`error: ${result.error.message}`);
   }
 
   if (result.stdout.trim()) {
-    console.error('\nstdout:');
-    console.error(result.stdout.trim());
+    lines.push('', 'stdout:', result.stdout.trim());
   }
 
   if (result.stderr.trim()) {
-    console.error('\nstderr:');
-    console.error(result.stderr.trim());
+    lines.push('', 'stderr:', result.stderr.trim());
   }
+
+  return lines.join('\n');
 }

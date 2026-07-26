@@ -2,6 +2,7 @@
   "name": "@dadata-sdk/api-spec",
   "version": "0.1.0",
   "private": false,
+  "type": "module",
   "description": "Bundled OpenAPI and JSON Schema artifacts for the DaData API.",
   "keywords": [
     "dadata",
@@ -30,25 +31,12 @@
   },
   "scripts": {
     "build": "pnpm run gen:artifacts",
-    "test": "node --import tsx --test ./scripts/official-comparison/stage-b/anyof-folding.test.ts ./scripts/official-comparison/stage-b/anyof-selection.test.ts ./scripts/official-comparison/stage-b/comparison-safety.test.ts ./scripts/official-comparison/stage-b/diff-units.test.ts ./scripts/official-comparison/stage-b/schema-component-aliases.test.ts",
+    "test": "node --import tsx --test ./scripts/official-comparison/*.test.ts ./scripts/official-comparison/operations/*.test.ts ./scripts/official-comparison/normalization/*.test.ts ./scripts/official-comparison/diff/*.test.ts",
     "type-check": "tsc -p tsconfig.scripts.json --noEmit",
     "gen:schemas": "pnpm exec schema-gen --input ../api-types/schema-types --output ./schemas",
     "gen:bundle": "pnpm exec tsx ./scripts/bundle-openapi.ts ./source/dadata-src.yaml ./dadata.json ./dadata.yaml",
     "gen:artifacts": "pnpm run gen:schemas && pnpm run gen:bundle",
-    "check:official-upstream": "pnpm exec tsx ./scripts/check-official-upstream.ts",
-    "compare:official": "pnpm exec tsx ./scripts/compare-official.ts",
-    "compare:official:cleaner-stage-a": "pnpm exec tsx ./scripts/compare-official-cleaner-stage-a.ts",
-    "compare:official:cleaner-stage-b": "pnpm exec tsx ./scripts/compare-official-cleaner-stage-b.ts",
-    "compare:official:cleaner-stage-b:check-snapshot": "pnpm exec tsx ./scripts/compare-official-cleaner-stage-b.ts --check-snapshot",
-    "compare:official:cleaner-stage-b:update-snapshot": "pnpm exec tsx ./scripts/compare-official-cleaner-stage-b.ts --update-snapshot",
-    "compare:official:profile-stage-a": "pnpm exec tsx ./scripts/compare-official-profile-stage-a.ts",
-    "compare:official:profile-stage-b": "pnpm exec tsx ./scripts/compare-official-profile-stage-b.ts",
-    "compare:official:profile-stage-b:check-snapshot": "pnpm exec tsx ./scripts/compare-official-profile-stage-b.ts --check-snapshot",
-    "compare:official:profile-stage-b:update-snapshot": "pnpm exec tsx ./scripts/compare-official-profile-stage-b.ts --update-snapshot",
-    "compare:official:suggestions-stage-a": "pnpm exec tsx ./scripts/compare-official-suggestions-stage-a.ts",
-    "compare:official:suggestions-stage-b": "pnpm exec tsx ./scripts/compare-official-suggestions-stage-b.ts",
-    "compare:official:suggestions-stage-b:check-snapshot": "pnpm exec tsx ./scripts/compare-official-suggestions-stage-b.ts --check-snapshot",
-    "compare:official:suggestions-stage-b:update-snapshot": "pnpm exec tsx ./scripts/compare-official-suggestions-stage-b.ts --update-snapshot"
+    "official": "pnpm exec tsx ./scripts/official.ts"
   },
   "devDependencies": {
     "@dadata-sdk/schema-gen": "workspace:*",
@@ -56,6 +44,7 @@
     "@scalar/openapi-types": "^0.3.7",
     "@types/node": "^24.1.0",
     "prettier": "^3.6.2",
+    "tar": "7.5.22",
     "tsx": "^4.19.4",
     "yaml": "^2.8.3"
   },
