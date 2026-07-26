@@ -37,7 +37,7 @@ export type AddressDivisionsAdministrative = {
 
 export type AddressDivisionsMunicipal = {
   [
-    K in 'area' | 'city' | 'settlement' | 'planning_structure' | 'sub_area'
+    K in 'area' | 'sub_area' | 'city' | 'settlement' | 'planning_structure'
   ]?: null | AddressDivisionsAdministrativeItem;
 };
 
@@ -53,7 +53,9 @@ export interface AddressDivisions {
    */
   administrative: AddressDivisionsAdministrative;
   /**
-   * Компоненты адреса в муниципальном делении. Отсутствует в новых версиях API, в старых не заполнялось.
+   * Компоненты адреса в муниципальном делении (только для "Подсказок").
+   *
+   * В Стандартизации присутствовало ранее (но всегда `null`), далее полностью исчезло.
    */
   municipal?: null | AddressDivisionsMunicipal;
 }
@@ -657,9 +659,14 @@ interface AllAddressFields {
   /** Нераспознанная часть адреса. (заполняется только для стандартизации) */
   unparsed_parts: null;
   /**
-   * Поля адреса в административном делении
-   * (только для стандартизации)
-   * * Поле существует начиная с v22.3+
+   * Гранулярные поля административного и муниципального делений. v22.3+
+   *
+   * - Стандартизация: содержит только административное деление (поле `administrative`),
+   *   ранее также могло содержать `"municipal": null`.
+   *
+   * - Подсказки: Заполняется при выборе конкретной подсказки (запрос с count=1).
+   *   В документации описано как "Только «Максимальный» тариф", на июль 2026 заполняется на всех тарифах.
+   *   Заполняется с июля 2026.
    */
   divisions?: null | AddressDivisions;
   /**

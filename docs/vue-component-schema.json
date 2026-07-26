@@ -448,14 +448,17 @@
           "anyOf": [
             {
               "type": ["boolean", "null"],
-              "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=1023737934#id-Ограничениепоназваниюадресногообъекта-Адресбезрегионаигорода\n- @see https://confluence.hflabs.ru/display/SGTDOC/address.value#address.value-Параметрrestrict_value"
+              "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=1023737934#id-Ограничениепоназваниюадресногообъекта-Адресбезрегионаигорода\n- @see https://confluence.hflabs.ru/display/SGTDOC/address.value#address.value-Параметрrestrict_value\n\n@default false",
+              "default": false
             },
             {
               "type": ["boolean", "null"],
-              "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n@see https://confluence.hflabs.ru/pages/viewpage.action?pageId=967835974#:~:text=Адрес%20без%20региона%20и%20города"
+              "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n@see https://confluence.hflabs.ru/pages/viewpage.action?pageId=967835974#:~:text=Адрес%20без%20региона%20и%20города\n@default false",
+              "default": false
             }
           ],
-          "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=1023737934#id-Ограничениепоназваниюадресногообъекта-Адресбезрегионаигорода\n- @see https://confluence.hflabs.ru/display/SGTDOC/address.value#address.value-Параметрrestrict_value"
+          "description": "Используется совместно с ограничениями (параметр `locations`), чтобы адрес в ответе\n(поле `value`) не содержал регион / город / район и т.д., заданный в ограничении.\n\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017\n- @see https://confluence.hflabs.ru/pages/viewpage.action?pageId=1023737934#id-Ограничениепоназваниюадресногообъекта-Адресбезрегионаигорода\n- @see https://confluence.hflabs.ru/display/SGTDOC/address.value#address.value-Параметрrestrict_value\n\n@default false",
+          "default": false
         },
         "locations_geo": {
           "anyOf": [{ "type": "array", "items": { "$ref": "#/definitions/RadiusFilter" } }, { "type": "null" }],
@@ -543,7 +546,8 @@
         },
         "gender": {
           "anyOf": [{ "type": "string", "enum": ["MALE", "FEMALE", "UNKNOWN"] }, { "type": "null" }],
-          "description": "Пол (`UNKNOWN` / `MALE` / `FEMALE`)"
+          "description": "Пол (`UNKNOWN` / `MALE` / `FEMALE`)\n\n@default 'UNKNOWN'",
+          "default": "UNKNOWN"
         },
         "parts": {
           "anyOf": [

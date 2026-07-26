@@ -3712,6 +3712,10 @@ components:
           anyOf:
             - type: 'null'
             - $ref: '#/components/schemas/AddressDivisionsAdministrativeItem'
+        sub_area:
+          anyOf:
+            - type: 'null'
+            - $ref: '#/components/schemas/AddressDivisionsAdministrativeItem'
         city:
           anyOf:
             - type: 'null'
@@ -3721,10 +3725,6 @@ components:
             - type: 'null'
             - $ref: '#/components/schemas/AddressDivisionsAdministrativeItem'
         planning_structure:
-          anyOf:
-            - type: 'null'
-            - $ref: '#/components/schemas/AddressDivisionsAdministrativeItem'
-        sub_area:
           anyOf:
             - type: 'null'
             - $ref: '#/components/schemas/AddressDivisionsAdministrativeItem'
@@ -3745,7 +3745,10 @@ components:
           anyOf:
             - type: 'null'
             - $ref: '#/components/schemas/AddressDivisionsMunicipal'
-          description: Компоненты адреса в муниципальном делении. Отсутствует в новых версиях API, в старых не заполнялось.
+          description: |-
+            Компоненты адреса в муниципальном делении (только для "Подсказок").
+
+            В Стандартизации присутствовало ранее (но всегда `null`), далее полностью исчезло.
       required:
         - administrative
     AddressAdminData:
@@ -4454,9 +4457,14 @@ components:
             - type: 'null'
             - $ref: '#/components/schemas/AddressDivisions'
           description: |-
-            Поля адреса в административном делении
-            (только для стандартизации)
-            * Поле существует начиная с v22.3+
+            Гранулярные поля административного и муниципального делений. v22.3+
+
+            - Стандартизация: содержит только административное деление (поле `administrative`),
+              ранее также могло содержать `"municipal": null`.
+
+            - Подсказки: Заполняется при выборе конкретной подсказки (запрос с count=1).
+              В документации описано как "Только «Максимальный» тариф", на июль 2026 заполняется на всех тарифах.
+              Заполняется с июля 2026.
         city_district_fias_id:
           type:
             - 'null'
@@ -5311,9 +5319,14 @@ components:
             - type: 'null'
             - $ref: '#/components/schemas/AddressDivisions'
           description: |-
-            Поля адреса в административном делении
-            (только для стандартизации)
-            * Поле существует начиная с v22.3+
+            Гранулярные поля административного и муниципального делений. v22.3+
+
+            - Стандартизация: содержит только административное деление (поле `administrative`),
+              ранее также могло содержать `"municipal": null`.
+
+            - Подсказки: Заполняется при выборе конкретной подсказки (запрос с count=1).
+              В документации описано как "Только «Максимальный» тариф", на июль 2026 заполняется на всех тарифах.
+              Заполняется с июля 2026.
         sub_area_fias_id:
           type:
             - 'null'
@@ -7231,9 +7244,14 @@ components:
             - type: 'null'
             - $ref: '#/components/schemas/AddressDivisions'
           description: |-
-            Поля адреса в административном делении
-            (только для стандартизации)
-            * Поле существует начиная с v22.3+
+            Гранулярные поля административного и муниципального делений. v22.3+
+
+            - Стандартизация: содержит только административное деление (поле `administrative`),
+              ранее также могло содержать `"municipal": null`.
+
+            - Подсказки: Заполняется при выборе конкретной подсказки (запрос с count=1).
+              В документации описано как "Только «Максимальный» тариф", на июль 2026 заполняется на всех тарифах.
+              Заполняется с июля 2026.
         city_district_fias_id:
           type:
             - 'null'
@@ -10266,9 +10284,14 @@ components:
             - type: 'null'
             - $ref: '#/components/schemas/AddressDivisions'
           description: |-
-            Поля адреса в административном делении
-            (только для стандартизации)
-            * Поле существует начиная с v22.3+
+            Гранулярные поля административного и муниципального делений. v22.3+
+
+            - Стандартизация: содержит только административное деление (поле `administrative`),
+              ранее также могло содержать `"municipal": null`.
+
+            - Подсказки: Заполняется при выборе конкретной подсказки (запрос с count=1).
+              В документации описано как "Только «Максимальный» тариф", на июль 2026 заполняется на всех тарифах.
+              Заполняется с июля 2026.
         city_district_fias_id:
           type:
             - 'null'
@@ -14836,7 +14859,7 @@ components:
           description: Исходное значение.
       required:
         - source
-      description: Поле составной записи, которое не нужно стандартизировать.
+      description: Поле в составной записи стандартизации, которое нужно оставить как есть (не стандартизировать)
     SimplePartyNameClean:
       type: object
       properties:
@@ -14898,7 +14921,7 @@ components:
         - structure
         - data
       description: |-
-        Составная запись с контактными данными
+        Составная запись стандартизации
         @see https://dadata.ru/api/clean/record/
     GeolocateAddressPayload:
       type: object
