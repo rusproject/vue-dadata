@@ -3,7 +3,10 @@ import { cloneJson, isRecord } from '../io.ts';
 import type { MergeContext, ResolvedSchema } from './anyof-folding-types.ts';
 import { materializeSchema } from './schema-target.ts';
 
+/** Annotation keywords, которые не влияют на результат merge */
 export const ANNOTATION_KEYS = new Set(['description']);
+
+/** Keywords, разрешённые в object-ветках folding rule */
 export const OBJECT_KEYS = new Set([
   'additionalProperties',
   'description',
@@ -11,8 +14,13 @@ export const OBJECT_KEYS = new Set([
   'required',
   'type',
 ]);
+
+/** Keywords, разрешённые в array-ветках folding rule */
 export const ARRAY_KEYS = new Set(['description', 'items', 'type']);
 
+/**
+ * Резолвит $ref, возвращая как зарезолвленную схему так и исходный реф (для проверки ожидаемых веток)
+ */
 export function resolveSchemaForMerge(
   value: unknown,
   root: Record<string, unknown>,
@@ -30,6 +38,7 @@ export function resolveSchemaForMerge(
   };
 }
 
+/** Проверяет, что schema содержит только разрешённые keywords */
 export function assertAllowedKeys(
   schema: Record<string, unknown>,
   allowedKeys: Set<string>,
@@ -51,6 +60,7 @@ export function assertExactNullBranch(branch: ResolvedSchema, context: MergeCont
   }
 }
 
+/** Проверяет что значение `key` одинаковое во всех ветках и возвращает его копию */
 export function mergeIdenticalKeyword(
   branches: ResolvedSchema[],
   key: string,
@@ -67,6 +77,7 @@ export function mergeIdenticalKeyword(
   return first === undefined ? undefined : cloneJson(first);
 }
 
+/** Проверяет что в `required` только строки и они уникальные. Возвращает Set */
 export function readRequired(
   value: unknown,
   schemaPath: string,
@@ -101,6 +112,7 @@ export function requireRecord(value: unknown, path: string): Record<string, unkn
   return value;
 }
 
+/** Проверяет что ветка содержит $ref и возвращает его */
 export function requireBranchRef(branch: ResolvedSchema | undefined, path: string): string {
   if (!branch?.ref) {
     throw new Error(`AnyOf folding requires explicitly referenced object branches at ${path}.`);
@@ -119,6 +131,7 @@ export function isNullSchema(value: unknown): boolean {
   return type === 'null' || (Array.isArray(type) && type.length === 1 && type[0] === 'null');
 }
 
+/** Добавляет schemaPath к пути текущего folding rule для сообщений об ошибках */
 export function pathLabel(schemaPath: string, context: MergeContext): string {
   return `${context.rulePath} ${schemaPath || '<schema>'}`;
 }
@@ -127,6 +140,7 @@ export function joinSchemaPath(parent: string, child: string): string {
   return parent ? `${parent}/${child}` : child;
 }
 
+/** Сериализует значение в JSON с отсортированными ключами объектов */
 export function stringifyCanonical(value: unknown): string {
   return JSON.stringify(canonicalize(value));
 }

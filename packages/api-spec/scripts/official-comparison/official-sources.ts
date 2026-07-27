@@ -2,12 +2,14 @@ export type OfficialFamily = 'cleaner' | 'profile' | 'suggestions';
 
 export const OFFICIAL_FAMILIES: OfficialFamily[] = ['cleaner', 'profile', 'suggestions'];
 
+/** Данные об официальном OpenAPI-файле и его локальной копии */
 export interface OfficialSource {
   family: OfficialFamily;
   localPath: string;
   url: string;
 }
 
+/** URL и локальные пути официальных OpenAPI-файлов каждой группы API */
 export const OFFICIAL_SOURCES: Record<OfficialFamily, OfficialSource> = {
   cleaner: {
     family: 'cleaner',
@@ -26,6 +28,7 @@ export const OFFICIAL_SOURCES: Record<OfficialFamily, OfficialSource> = {
   },
 };
 
+/** Достаёт непосредственно имя файла из URL для официального файла */
 export function officialSourceFileName(source: OfficialSource): string {
   const segments = new URL(source.url).pathname.split('/');
   const fileName = segments.at(-1);

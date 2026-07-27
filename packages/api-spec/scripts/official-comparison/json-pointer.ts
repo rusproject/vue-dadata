@@ -1,14 +1,14 @@
-/** Escapes one JSON Pointer segment. */
+/** Экранирует один сегмент JSON Pointer */
 export function escapeJsonPointerSegment(value: string): string {
   return value.replaceAll('~', '~0').replaceAll('/', '~1');
 }
 
-/** Unescapes one JSON Pointer segment. */
+/** Убирает экранирование из одного сегмента JSON Pointer */
 export function unescapeJsonPointerSegment(value: string): string {
   return value.replaceAll('~1', '/').replaceAll('~0', '~');
 }
 
-/** Parses a local ref only when every JSON Pointer segment uses canonical escaping. */
+/** Парсит локальный $ref и проверяет каноничность экранирования каждого сегмента */
 export function parseCanonicalLocalRef(ref: string, context: string): string[] {
   if (ref === '#') {
     return [];
@@ -21,6 +21,7 @@ export function parseCanonicalLocalRef(ref: string, context: string): string[] {
   const encodedSegments = ref.slice(2).split('/');
   const segments = encodedSegments.map(unescapeJsonPointerSegment);
 
+  // Собираем ref обратно, чтобы проверить каноничность экранирования
   if (formatLocalRef(segments) !== ref) {
     throw new Error(`${context} contains noncanonical JSON Pointer escaping: ${ref}.`);
   }
@@ -28,7 +29,7 @@ export function parseCanonicalLocalRef(ref: string, context: string): string[] {
   return segments;
 }
 
-/** Formats parsed local-ref segments with canonical JSON Pointer escaping. */
+/** Собирает каноничный локальный $ref из сегментов JSON Pointer */
 export function formatLocalRef(pointer: string[]): string {
   return pointer.length === 0 ? '#' : `#/${pointer.map(escapeJsonPointerSegment).join('/')}`;
 }

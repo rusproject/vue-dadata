@@ -11,6 +11,7 @@ export type {
   ExpectedObjectBranch,
 } from './anyof-folding-types.ts';
 
+/** Применяет правила сворачивания anyOf и возвращает описания сделанных изменений */
 export function applyAnyOfFoldingRules(
   document: OpenAPIV3_1.Document,
   rules: AnyOfFoldingRule[],

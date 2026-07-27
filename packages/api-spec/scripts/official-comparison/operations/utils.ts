@@ -4,6 +4,7 @@ import type { OpenAPIV3_1 } from '@scalar/openapi-types';
 import type { HttpMethod } from '../openapi.ts';
 import type { ComparisonUnit, OperationIdentity, OperationRecord, RefIdentity } from './types.ts';
 
+/** Создаёт ключ, идентифицирующий операцию - `method:path` */
 export function operationKey(path: string, method: HttpMethod): string {
   return `${method}:${path}`;
 }
@@ -28,6 +29,7 @@ export function assignOperation(
   pathItem[method] = operation;
 }
 
+/** Превращает OpenAPI-путь в безопасный суффикс для operationId */
 export function slugifyPath(path: string): string {
   return path
     .replace(/^\//u, '')
@@ -35,10 +37,12 @@ export function slugifyPath(path: string): string {
     .replace(/^_+|_+$/gu, '');
 }
 
+/** Сортирует операции по path, затем по HTTP-методу, и возвращает новый отсортированный массив (без мутации) */
 export function sortOperationRecords(records: OperationRecord[]): OperationRecord[] {
   return [...records].sort(compareOperationRecords);
 }
 
+/** Сортирует копию записей сравнения по path, методу и kind */
 export function sortComparisonUnits(units: ComparisonUnit[]): ComparisonUnit[] {
   return [...units].sort(
     (left, right) =>
@@ -48,6 +52,7 @@ export function sortComparisonUnits(units: ComparisonUnit[]): ComparisonUnit[] {
   );
 }
 
+/** CompareFn для сортировок, которая сравнивает две операции сначала по path, потом по HTTP-методу */
 export function compareOperationRecords(left: OperationRecord, right: OperationRecord): number {
   return left.path.localeCompare(right.path) || left.method.localeCompare(right.method);
 }

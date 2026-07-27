@@ -20,6 +20,7 @@ import {
   stringifyCanonical,
 } from './anyof-folding-utils.ts';
 
+/** Объединяет object-ветки в общую schema, проверяя refs и branch-only поля по folding rule */
 export function mergeObjectBranches(
   branches: ResolvedSchema[],
   expectedBranches: ExpectedObjectBranch[],
@@ -84,6 +85,7 @@ export function mergeObjectBranches(
   return foldedSchema;
 }
 
+/** Копирует одинаковые варианты schema или выполняет явно разрешённый recursive merge */
 function mergeSchemaVariants(
   variants: unknown[],
   schemaPath: string,
@@ -143,6 +145,7 @@ function mergeSchemaVariants(
   return mergeArrayBranches(resolved, schemaPath, context);
 }
 
+/** Объединяет array-ветки, удаляя annotations и рекурсивно сливая items */
 function mergeArrayBranches(
   branches: ResolvedSchema[],
   schemaPath: string,
@@ -178,6 +181,7 @@ function mergeArrayBranches(
   return folded;
 }
 
+/** Проверяет число, refs, type и разрешённые keywords object-веток */
 function assertExpectedObjectBranches(
   branches: ResolvedSchema[],
   expectedBranches: ExpectedObjectBranch[],
@@ -207,6 +211,7 @@ function assertExpectedObjectBranches(
   }
 }
 
+/** Проверяет точное соответствие branch-only `properties` и `required` условиям folding rule */
 function assertBranchLocalDifferences(
   branches: ResolvedSchema[],
   propertyMaps: Record<string, unknown>[],

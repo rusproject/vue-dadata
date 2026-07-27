@@ -31,6 +31,48 @@ function createRequestSchemaDiff(schema: Record<string, unknown>): Record<string
 }
 
 describe('buildDiffUnits', () => {
+  it('keeps whole-operation additions and deletions at operation scope', () => {
+    const diff = {
+      paths: {
+        modified: {
+          '/test': {
+            operations: {
+              added: ['post'],
+              deleted: ['GET'],
+            },
+          },
+        },
+      },
+    };
+
+    const units = buildDiffUnits(diff);
+
+    assert.deepEqual(units, [
+      {
+        kind: 'operation-deleted',
+        location: '<operation>',
+        method: 'GET',
+        path: '/test',
+        scope: 'operation',
+      },
+      {
+        kind: 'operation-added',
+        location: '<operation>',
+        method: 'POST',
+        path: '/test',
+        scope: 'operation',
+      },
+    ]);
+    assert.equal(
+      renderDiffUnitSnapshot(units),
+      [
+        '/test GET operation <operation> operation-deleted',
+        '/test POST operation <operation> operation-added',
+        '',
+      ].join('\n'),
+    );
+  });
+
   it('preserves array item bounds reported by oasdiff', () => {
     const diff = {
       paths: {

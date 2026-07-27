@@ -4,8 +4,8 @@ import type { OpenAPIV3_1 } from '@scalar/openapi-types';
 
 import { cloneJson, isRecord } from '../io.ts';
 import { escapeJsonPointerSegment, parseCanonicalLocalRef } from '../json-pointer.ts';
+import { HTTP_METHODS } from '../openapi.ts';
 
-type HttpMethod = 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch' | 'trace';
 type CompositionKey = 'anyOf' | 'oneOf';
 
 export interface ComparisonNormalizationDecision {
@@ -29,17 +29,6 @@ export const COMPARISON_INFO = {
   title: 'DaData official comparison',
   version: '0.0.0',
 };
-
-const HTTP_METHODS: HttpMethod[] = [
-  'get',
-  'put',
-  'post',
-  'delete',
-  'options',
-  'head',
-  'patch',
-  'trace',
-];
 
 /** Normalizes a temporary comparison document and returns every schema rewrite decision. */
 export function normalizeComparisonDocument(

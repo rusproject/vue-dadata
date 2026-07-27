@@ -22,8 +22,10 @@ import {
   formatOperationSchemaTarget,
 } from './schema-target.ts';
 
+/** Keywords, разрешённые в target-схеме с anyOf */
 const COMPOSITION_TARGET_KEYS = new Set(['anyOf', 'description']);
 
+/** Применяет один folding rule к OpenAPI-документу и возвращает описание изменения */
 export function foldConfiguredAnyOf(
   document: OpenAPIV3_1.Document,
   rule: AnyOfFoldingRule,
@@ -34,11 +36,20 @@ export function foldConfiguredAnyOf(
   const context = createMergeContext(root, rule, decisionPath);
   const decision = foldObjectAnyOf(targetSchema, rule, context);
 
-  assertAllPermissionsUsed(context);
+  // Проверяем что все разрешения на merge были использованы
+  const unusedMergePerms = [...context.permissions.keys()].filter(
+    (path) => !context.usedPermissions.has(path),
+  );
+  if (unusedMergePerms.length > 0) {
+    throw new Error(
+      `AnyOf folding has stale recursive merge permissions ${unusedMergePerms.sort().join(', ')}: ${context.rulePath}.`,
+    );
+  }
 
   return decision;
 }
 
+/** Индексирует разрешения на recursive merge по schemaPath, отклоняя дубликаты */
 function createMergeContext(
   root: Record<string, unknown>,
   rule: AnyOfFoldingRule,
@@ -70,6 +81,7 @@ function createMergeContext(
   };
 }
 
+/** Проверяет соответствие веток anyOf условиям folding rule и заменяет этот anyOf одной общей схемой */
 function foldObjectAnyOf(
   schema: Record<string, unknown>,
   rule: AnyOfFoldingRule,
@@ -120,18 +132,6 @@ function foldObjectAnyOf(
     objectBranchCount: objectBranches.length,
     path: context.rulePath,
   };
-}
-
-function assertAllPermissionsUsed(context: MergeContext): void {
-  const unused = [...context.permissions.keys()].filter(
-    (path) => !context.usedPermissions.has(path),
-  );
-
-  if (unused.length > 0) {
-    throw new Error(
-      `AnyOf folding has stale recursive merge permissions ${unused.sort().join(', ')}: ${context.rulePath}.`,
-    );
-  }
 }
 
 /** Replaces the approved anyOf while preserving annotation siblings on the target schema. */

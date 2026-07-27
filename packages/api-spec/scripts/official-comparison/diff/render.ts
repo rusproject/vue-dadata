@@ -13,12 +13,18 @@ export function buildDiffUnitsByPath(units: DiffUnit[]): DiffUnitsByPath {
     const method = unit.method.toLowerCase();
     const pathGroup = (grouped[unit.path] ??= {});
     const operationGroup = (pathGroup[method] ??= {
+      operation: [],
       request: [],
       responses: {},
       responseStatuses: [],
     });
 
-    if (unit.side === 'request') {
+    if (unit.scope === 'operation') {
+      operationGroup.operation.push(unit);
+      continue;
+    }
+
+    if (unit.scope === 'request') {
       operationGroup.request.push(unit);
       continue;
     }
@@ -47,7 +53,7 @@ export function sortDiffUnits<T extends DiffUnit>(units: T[]): T[] {
     (left, right) =>
       left.path.localeCompare(right.path) ||
       left.method.localeCompare(right.method) ||
-      left.side.localeCompare(right.side) ||
+      left.scope.localeCompare(right.scope) ||
       (left.status ?? '').localeCompare(right.status ?? '') ||
       left.location.localeCompare(right.location) ||
       left.kind.localeCompare(right.kind) ||
@@ -84,6 +90,7 @@ function sortDiffUnitsByPath(grouped: DiffUnitsByPath): DiffUnitsByPath {
 
     for (const method of Object.keys(methods).sort((left, right) => left.localeCompare(right))) {
       const operation = methods[method] ?? {
+        operation: [],
         request: [],
         responses: {},
         responseStatuses: [],
@@ -97,6 +104,7 @@ function sortDiffUnitsByPath(grouped: DiffUnitsByPath): DiffUnitsByPath {
       }
 
       sorted[path][method] = {
+        operation: sortDiffUnits([...operation.operation]),
         request: sortDiffUnits([...operation.request]),
         responses,
         responseStatuses: sortDiffUnits([...operation.responseStatuses]),
@@ -131,7 +139,7 @@ function formatSnapshotLine(unit: SnapshotDiffUnit): string {
   return [
     unit.path,
     unit.method,
-    unit.side,
+    unit.scope,
     unit.status,
     unit.mediaType,
     unit.location,

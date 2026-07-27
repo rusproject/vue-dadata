@@ -1,16 +1,46 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { type DiffUnit, renderDiffUnitSnapshot } from './diff-units.ts';
+import { type DiffUnit, buildDiffUnitsByPath, renderDiffUnitSnapshot } from './diff-units.ts';
 
 const baseUnit = {
   location: 'suggestions/items/data/geo_lat',
   mediaType: 'application/json',
   method: 'POST',
   path: '/suggest/metro',
-  side: 'response',
+  scope: 'response',
   status: '200',
 } satisfies Omit<DiffUnit, 'kind'>;
+
+describe('buildDiffUnitsByPath', () => {
+  it('keeps operation-presence differences separate from request-contract differences', () => {
+    const operationUnit: DiffUnit = {
+      kind: 'operation-added',
+      location: '<operation>',
+      method: 'POST',
+      path: '/test',
+      scope: 'operation',
+    };
+    const requestUnit: DiffUnit = {
+      kind: 'request-body-added',
+      location: '<requestBody>',
+      method: 'POST',
+      path: '/test',
+      scope: 'request',
+    };
+
+    assert.deepEqual(buildDiffUnitsByPath([requestUnit, operationUnit]), {
+      '/test': {
+        post: {
+          operation: [operationUnit],
+          request: [requestUnit],
+          responses: {},
+          responseStatuses: [],
+        },
+      },
+    });
+  });
+});
 
 describe('renderDiffUnitSnapshot', () => {
   it('coalesces property additions and deletions with matching requiredness changes', () => {

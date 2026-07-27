@@ -2,9 +2,21 @@ import type { OpenAPIV3_1 } from '@scalar/openapi-types';
 
 export type HttpMethod = 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch' | 'trace';
 
-export const HTTP_METHODS: HttpMethod[] = ['get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace'];
+export const HTTP_METHODS: HttpMethod[] = [
+  'get',
+  'put',
+  'post',
+  'delete',
+  'options',
+  'head',
+  'patch',
+  'trace',
+];
 
-/** Returns paths sorted by their literal OpenAPI path. */
+/**
+ * Сортирует свойства в PathsObject по алфавиту через localeCompare
+ * и возвращает новый отсортированный объект
+ */
 export function sortPaths(paths: OpenAPIV3_1.PathsObject): OpenAPIV3_1.PathsObject {
   const sorted: OpenAPIV3_1.PathsObject = {};
 
@@ -15,16 +27,12 @@ export function sortPaths(paths: OpenAPIV3_1.PathsObject): OpenAPIV3_1.PathsObje
   return sorted;
 }
 
-/** Builds an exact-match regex for an already curated path set. */
+/** Создаёт regexp, находящий все переданные OpenAPI-пути (`^(path-1|path-2|path-3)$`) */
 export function buildExactPathRegex(paths: string[]): string {
   if (paths.length === 0) {
-    throw new Error('Projected official suggestions spec has no paths.');
+    throw new Error('Attempt to build a regex from an empty list of paths');
   }
 
-  return `^(${paths.map(escapeRegex).join('|')})$`;
-}
-
-/** Escapes a literal string for use inside a regular expression. */
-export function escapeRegex(value: string): string {
-  return value.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&');
+  const escape = (v: string) => v.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&');
+  return `^(${paths.map(escape).join('|')})$`;
 }

@@ -116,7 +116,7 @@ function collectOperationPresenceUnits(
       location: '<operation>',
       method: String(method).toUpperCase(),
       path,
-      side: 'request',
+      scope: 'operation',
     });
   }
 }

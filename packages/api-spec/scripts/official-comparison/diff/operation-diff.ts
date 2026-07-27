@@ -47,7 +47,7 @@ function collectRequestBodyUnits(
   );
   validateIgnoredRecordDiffs(requestBody, IGNORED_REQUEST_BODY_DIFF_KEYS, requestBodyPath);
 
-  const context: UnitContext = { method, path, side: 'request', units };
+  const context: UnitContext = { method, path, scope: 'request', units };
 
   collectTrueMarkerUnit(
     requestBody.added,
@@ -121,10 +121,11 @@ function collectResponseUnits(
     validateIgnoredRecordDiffs(responseDiff, IGNORED_RESPONSE_DIFF_KEYS, responseDiffPath);
 
     if ('content' in responseDiff) {
-      collectContentUnits(responseDiff.content, { method, path, side: 'response', status, units }, [
-        ...responseDiffPath,
-        'content',
-      ]);
+      collectContentUnits(
+        responseDiff.content,
+        { method, path, scope: 'response', status, units },
+        [...responseDiffPath, 'content'],
+      );
     }
   }
 }
@@ -182,7 +183,7 @@ function collectResponseStatusUnits(
       location: '<response>',
       method,
       path,
-      side: 'response',
+      scope: 'response',
       status: String(status),
     });
   }

@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 
+/** Пути ко всем артефактам одного запуска сравнения */
 export interface ComparisonArtifacts {
   diffByPath: string;
   diffSnapshot: string;
@@ -15,6 +16,7 @@ export interface ComparisonArtifacts {
   oursNormalizationLog: string;
 }
 
+/** Собирает пути к артефактам внутри указанной директории */
 export function comparisonArtifacts(directory: string): ComparisonArtifacts {
   return {
     directory,

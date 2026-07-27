@@ -93,7 +93,7 @@ export function pushUnit(
     mediaType: context.mediaType,
     method: context.method.toUpperCase(),
     path: context.path,
-    side: context.side,
+    scope: context.scope,
     status: context.status,
   };
 
