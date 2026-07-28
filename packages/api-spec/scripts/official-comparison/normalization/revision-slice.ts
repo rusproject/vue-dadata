@@ -15,8 +15,11 @@ import {
   applySchemaComponentAliasRules,
 } from './schema-component-aliases.ts';
 
+/** Метаданные среза нашей спецификации, сделанного для сравнения */
 export interface RevisionSliceResult {
+  /** Описания всех изменений, сделанных при нормализации среза */
   normalizationDecisions: ComparisonNormalizationDecision[];
+  /** Количество операций, вошедших в срез */
   operationCount: number;
 }
 
@@ -59,6 +62,7 @@ export function buildComparableRevisionSlice(
   const paths: OpenAPIV3_1.PathsObject = {};
   let operationCount = 0;
 
+  // Собираем новый объект `paths` только из операций official projection, не меняя исходную спецификацию
   for (const [path, methods] of comparableOperations) {
     const sourcePathItem = ourSpec.paths?.[path];
 
@@ -91,13 +95,11 @@ export function buildComparableRevisionSlice(
   const document: OpenAPIV3_1.Document = {
     openapi: ourSpec.openapi ?? '3.1.1',
     info: cloneJson(COMPARISON_INFO),
-    servers: cloneOptionalJson(ourSpec.servers),
-    security: cloneOptionalJson(ourSpec.security),
-    tags: cloneOptionalJson(ourSpec.tags),
     paths: sortPaths(paths),
     components: cloneOptionalJson(ourSpec.components),
   };
 
+  // Последовательно применяем к копии общую и project-specific нормализацию
   const normalizationDecisions = normalizeComparisonDocument(document, document.openapi ?? '3.1.1');
   normalizationDecisions.push(...applyAnyOfSelectionRules(document, anyOfSelectionRules));
   normalizationDecisions.push(...applyAnyOfFoldingRules(document, anyOfFoldingRules));

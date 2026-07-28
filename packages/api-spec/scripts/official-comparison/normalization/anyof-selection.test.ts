@@ -143,6 +143,26 @@ describe('applyAnyOfSelectionRules', () => {
     assert.throws(() => applyAnyOfSelectionRules(document, [buildRule()]), /duplicate branch refs/);
   });
 
+  it('requires exactly one request or response target', () => {
+    const bothRule = {
+      ...buildRule(),
+      request: { mediaType: 'application/json' },
+    };
+
+    assert.throws(
+      () => applyAnyOfSelectionRules(buildDocument(), [bothRule]),
+      /must specify exactly one of request or response/,
+    );
+
+    const neitherRule = buildRule();
+    delete neitherRule.response;
+
+    assert.throws(
+      () => applyAnyOfSelectionRules(buildDocument(), [neitherRule]),
+      /must specify exactly one of request or response/,
+    );
+  });
+
   it('rejects non-ref branches and structural target siblings', () => {
     const document = buildDocument();
     const items = responseItems(document);

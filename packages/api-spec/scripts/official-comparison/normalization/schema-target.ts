@@ -9,23 +9,33 @@ import {
 } from '../json-pointer.ts';
 import type { HttpMethod } from '../openapi.ts';
 
+/** Сторона сравнения, к которой применяется normalization rule */
 export type ComparisonTarget = 'official' | 'ours';
 
+// TODO: описать `request` и `response` как взаимоисключающий union, чтобы target с обоими полями
+// не компилировался. Для этого расширяющие `OperationSchemaTarget` rules придётся переделать в
+// intersection type aliases
+/** Координаты request- или response-схемы внутри операции */
 export interface OperationSchemaTarget {
+  /** Операция, внутри которой ищем схему */
   operation: {
     method: HttpMethod;
     path: string;
   };
+  /** Media type request body; взаимоисключается с `response` */
   request?: {
     mediaType: string;
   };
+  /** Статус и media type response; взаимоисключается с `request` */
   response?: {
     mediaType: string;
     status: string;
   };
+  /** Путь от корневой схемы через `properties` и `items`; пустая строка означает корень */
   schemaPath: string;
 }
 
+/** Annotation keywords, которые разрешено сохранять рядом с `$ref` */
 const ANNOTATION_KEYS = new Set(['description']);
 
 /** Validates the canonical comparison schema-path grammar. */
@@ -78,6 +88,15 @@ export function findAndMaterializeOperationSchema(
     true,
   );
 
+  const hasRequest = target.request !== undefined;
+  const hasResponse = target.response !== undefined;
+
+  if (hasRequest === hasResponse) {
+    throw new Error(
+      `${transformName} rule must specify exactly one of request or response: ${formatOperationSchemaTarget(target)}.`,
+    );
+  }
+
   const root = document as unknown as Record<string, unknown>;
   const pathItem = document.paths?.[target.operation.path];
 
@@ -95,15 +114,7 @@ export function findAndMaterializeOperationSchema(
 
   const schema = target.request
     ? findRequestSchema(root, operation, target, transformName)
-    : target.response
-      ? findResponseSchema(root, operation, target, transformName)
-      : null;
-
-  if (!schema) {
-    throw new Error(
-      `${transformName} rule must specify request or response: ${formatOperationSchemaTarget(target)}.`,
-    );
-  }
+    : findResponseSchema(root, operation, target, transformName);
 
   return materializeSchemaPath(
     root,
@@ -145,6 +156,7 @@ export function materializeSchema(
 
   const nextVisitedRefs = new Set(visitedRefs);
   nextVisitedRefs.add(ref);
+  // Клонируем найденную схему, чтобы изменения не затронули другие ссылки на неё
   const materialized = materializeSchema(
     root,
     cloneJson(resolved),
@@ -162,6 +174,7 @@ export function materializeSchema(
   return materialized;
 }
 
+/** Форматирует координаты схемы для логов и сообщений об ошибках */
 export function formatOperationSchemaTarget(target: OperationSchemaTarget): string {
   const operation = `${target.operation.method.toUpperCase()} ${target.operation.path}`;
   const schemaPath = target.schemaPath ? ` ${target.schemaPath}` : '';
@@ -177,6 +190,7 @@ export function formatOperationSchemaTarget(target: OperationSchemaTarget): stri
   return `${operation}${schemaPath}`;
 }
 
+/** Находит и при необходимости материализует схему request body с указанным media type */
 function findRequestSchema(
   root: Record<string, unknown>,
   operation: Record<string, unknown>,
@@ -206,6 +220,7 @@ function findRequestSchema(
   );
 }
 
+/** Находит и при необходимости материализует response-схему для указанных status и media type */
 function findResponseSchema(
   root: Record<string, unknown>,
   operation: Record<string, unknown>,
@@ -239,6 +254,7 @@ function findResponseSchema(
   );
 }
 
+/** Проходит по `schemaPath`, материализуя `$ref` на каждом шаге, и возвращает целевую схему */
 function materializeSchemaPath(
   root: Record<string, unknown>,
   schema: Record<string, unknown>,
@@ -285,6 +301,7 @@ function materializeSchemaPath(
   return current;
 }
 
+/** Материализует схему в свойстве `owner` и записывает обратно результат, если там был `$ref` */
 function materializeSchemaProperty(
   root: Record<string, unknown>,
   owner: Record<string, unknown>,
@@ -307,6 +324,7 @@ function materializeSchemaProperty(
   return materialized;
 }
 
+/** Бросает ошибку если на одном уровне с `$ref` есть что-либо кроме разрешённых annotations */
 function assertRefHasOnlyAnnotationSiblings(
   schema: Record<string, unknown>,
   path: string,
@@ -323,6 +341,7 @@ function assertRefHasOnlyAnnotationSiblings(
   }
 }
 
+/** Находит в документе значение, на которое указывает канонический локальный `$ref` */
 function resolveLocalRef(root: Record<string, unknown>, ref: string, context: string): unknown {
   let current: unknown = root;
 

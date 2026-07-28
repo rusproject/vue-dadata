@@ -9,19 +9,29 @@ import {
   parseCanonicalLocalRef,
 } from '../json-pointer.ts';
 
+/** Результат удаления недостижимых OpenAPI-компонентов */
 export interface ComponentPruningResult {
-  after: Record<string, number>;
+  /** Количество компонентов по секциям до удаления */
   before: Record<string, number>;
-  kept: Record<string, string[]>;
+  /** Количество компонентов по секциям после удаления */
+  after: Record<string, number>;
+  /** Имена удалённых компонентов по секциям */
   removed: Record<string, string[]>;
+  /** Имена оставшихся компонентов по секциям */
+  kept: Record<string, string[]>;
+  /** Количество локальных `$ref`, успешно проверенных после удаления */
   validatedLocalRefCount: number;
 }
 
+/** Результат валидации всех локальных `$ref` в документе */
 interface LocalRefValidationResult {
+  /** Количество найденных локальных `$ref` */
   localRefCount: number;
+  /** Записи «место использования → `$ref`», если $ref не удалось зарезолвить */
   unresolvedRefs: string[];
 }
 
+/** Стандартные секции `components`, из которых удаляем недостижимые именованные компоненты */
 const COMPONENT_COLLECTION_KEYS = new Set([
   'callbacks',
   'examples',
@@ -312,10 +322,12 @@ function resolvePointer(root: Record<string, unknown>, pointer: string[]): unkno
   return current;
 }
 
+/** Проверяет, что `$ref` указывает внутрь текущего документа */
 function isLocalRef(ref: string): boolean {
   return ref === '#' || ref.startsWith('#/');
 }
 
+/** Сортирует имена компонентов внутри каждой секции для стабильного лога */
 function sortComponentNameRecords(records: Record<string, string[]>): void {
   for (const names of Object.values(records)) {
     names.sort((left, right) => left.localeCompare(right));

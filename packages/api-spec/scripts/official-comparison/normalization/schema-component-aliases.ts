@@ -6,9 +6,13 @@ import { escapeJsonPointerSegment } from '../json-pointer.ts';
 import type { ComparisonNormalizationDecision } from './comparison-normalization.ts';
 import type { ComparisonTarget } from './schema-target.ts';
 
+/** Правило замены имен схем (components.schemas) на имена для сравнения */
 export interface SchemaComponentAliasRule {
+  /** Имя компонента после переименования */
   canonicalName: string;
+  /** Исходное имя компонента */
   sourceName: string;
+  /** Сторона сравнения, к которой применяется правило */
   target: ComparisonTarget;
 }
 
@@ -29,6 +33,7 @@ export function applySchemaComponentAliasRules(
     throw new Error('Schema component aliases require components.schemas.');
   }
 
+  // До первого изменения проверяем, что схемы из `sourceName` существуют, а имена из `canonicalName` ещё не заняты
   for (const rule of rules) {
     if (!Object.hasOwn(schemas, rule.sourceName)) {
       throw new Error(
@@ -43,6 +48,9 @@ export function applySchemaComponentAliasRules(
     }
   }
 
+  // TODO: если одно из последующих правил не найдёт ни одного `$ref`, предыдущие уже успеют изменить
+  // документ. По-хорошему, нужен рефакторинг: сначала read-only проходом проверить наличие ссылок
+  // для всех правил, а переименования применять только после успешной проверки всего набора
   return rules.map((rule) => {
     const sourceRef = formatSchemaRef(rule.sourceName);
     const canonicalRef = formatSchemaRef(rule.canonicalName);
@@ -66,6 +74,7 @@ export function applySchemaComponentAliasRules(
   });
 }
 
+/** Проверяет, что alias rules не содержат дублей, цепочек и циклов */
 function assertIndependentAliases(rules: SchemaComponentAliasRule[]): void {
   const sourceNames = rules.map((rule) => rule.sourceName);
   const canonicalNames = rules.map((rule) => rule.canonicalName);
@@ -88,6 +97,7 @@ function assertIndependentAliases(rules: SchemaComponentAliasRule[]): void {
   }
 }
 
+/** Рекурсивно заменяет точные совпадения `$ref` и возвращает количество замен */
 function rewriteExactRefs(value: unknown, sourceRef: string, canonicalRef: string): number {
   if (Array.isArray(value)) {
     return value.reduce(
@@ -114,6 +124,7 @@ function rewriteExactRefs(value: unknown, sourceRef: string, canonicalRef: strin
   return count;
 }
 
+/** Строит локальный `$ref` указывающий на схему из `components.schemas`, экранируя имя для JSON Pointer */
 function formatSchemaRef(name: string): string {
   return `#/components/schemas/${escapeJsonPointerSegment(name)}`;
 }
