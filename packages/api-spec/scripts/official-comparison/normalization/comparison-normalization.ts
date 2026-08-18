@@ -8,22 +8,68 @@ import { HTTP_METHODS } from '../openapi.ts';
 
 type CompositionKey = 'anyOf' | 'oneOf';
 
-export interface ComparisonNormalizationDecision {
-  branchRefs?: string[];
-  canonicalName?: string;
-  compositionKey?: CompositionKey;
-  kind:
-    | 'aliased-schema-component'
-    | 'flattened-nullable-composition'
-    | 'folded-object-anyof'
-    | 'inlined-nullable-object-ref'
-    | 'selected-anyof-branch';
-  objectBranchCount?: number;
+/** Общие поля записи об изменении при нормализации */
+interface ComparisonNormalizationDecisionBase {
+  /** Путь к изменённой схеме */
   path: string;
-  ref?: string;
-  rewrittenRefCount?: number;
-  sourceName?: string;
 }
+
+/** Общие поля изменений, связанных с `anyOf` или `oneOf` */
+interface CompositionNormalizationDecisionBase extends ComparisonNormalizationDecisionBase {
+  /** Composition keyword, который был преобразован */
+  compositionKey: CompositionKey;
+}
+
+/** Запись о переименовании схемы из `components.schemas` и всех `$ref`, которые на неё указывали */
+interface AliasedSchemaComponentDecision extends ComparisonNormalizationDecisionBase {
+  kind: 'aliased-schema-component';
+  /** Имя схемы до переименования */
+  sourceName: string;
+  /** Имя схемы после переименования */
+  canonicalName: string;
+  /** Новый `$ref`, указывающий на переименованную схему */
+  ref: string;
+  /** Количество переписанных `$ref` */
+  rewrittenRefCount: number;
+}
+
+/** Запись о nullable-композиции с inline-веткой, свёрнутой в одну схему */
+interface FlattenedNullableCompositionDecision extends CompositionNormalizationDecisionBase {
+  kind: 'flattened-nullable-composition';
+}
+
+/** Запись об объектных ветках `anyOf`, объединённых по folding rule */
+interface FoldedObjectAnyOfDecision extends CompositionNormalizationDecisionBase {
+  kind: 'folded-object-anyof';
+  /** `$ref` исходных объектных веток */
+  branchRefs: string[];
+  /** Количество объединённых объектных веток */
+  objectBranchCount: number;
+}
+
+/** Запись о nullable-композиции, в которую встроили объектную схему из `$ref`-ветки */
+interface InlinedNullableObjectRefDecision extends CompositionNormalizationDecisionBase {
+  kind: 'inlined-nullable-object-ref';
+  /** Исходный `$ref`, указывавший на встроенную схему */
+  ref: string;
+}
+
+/** Запись об `anyOf`, заменённом одной явно выбранной `$ref`-веткой */
+interface SelectedAnyOfBranchDecision extends CompositionNormalizationDecisionBase {
+  kind: 'selected-anyof-branch';
+  /** Полный набор `$ref` исходных веток */
+  branchRefs: string[];
+  /** Выбранный `$ref`, которым заменили `anyOf` */
+  ref: string;
+}
+
+/** Описание одного изменения, сделанного при нормализации comparison-копии */
+export type ComparisonNormalizationDecision =
+  | AliasedSchemaComponentDecision
+  | FlattenedNullableCompositionDecision
+  | FoldedObjectAnyOfDecision
+  | InlinedNullableObjectRefDecision
+  | SelectedAnyOfBranchDecision;
 
 export const COMPARISON_INFO = {
   title: 'DaData official comparison',
